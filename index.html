@@ -1,0 +1,1096 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="청주시 서원구 사창동 이웃의 캠핑·취미 장비를 빌리는 동네 공유 서비스">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>주말창고</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: phone-shaped app column, with a demo-scenario rail beside it on wide screens */
+:root{
+  --bg:#E9EEE8; --surface:#FFFFFF; --sunken:#F3F6F2; --ink:#16231C; --muted:#5A6A60; --line:#D3DCD3;
+  --pine:#1F5C43; --pine-ink:#FFFFFF; --pine-soft:#E0EDE4;
+  --amber:#B87412; --amber-soft:#FBEFD8; --danger:#B03E2C; --danger-soft:#F8E4DF;
+  --f-display:"Do Hyeon","IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1410; --surface:#151F19; --sunken:#1B2720; --ink:#E4ECE6; --muted:#98A99E; --line:#2A3A31;
+  --pine:#62BC8E; --pine-ink:#0A1A11; --pine-soft:#1B3427;
+  --amber:#F0B04A; --amber-soft:#3A2B12; --danger:#EE7D68; --danger-soft:#3A1C16; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1410; --surface:#151F19; --sunken:#1B2720; --ink:#E4ECE6; --muted:#98A99E; --line:#2A3A31;
+  --pine:#62BC8E; --pine-ink:#0A1A11; --pine-soft:#1B3427;
+  --amber:#F0B04A; --amber-soft:#3A2B12; --danger:#EE7D68; --danger-soft:#3A1C16; color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed}
+:focus-visible{outline:2px solid var(--pine);outline-offset:2px}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+
+.stage{height:100%;display:flex;justify-content:center;align-items:stretch;gap:40px;padding-block:24px;padding-inline:16px}
+.phone{position:relative;width:100%;max-width:430px;height:100%;max-height:900px;align-self:center;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 18px 50px -24px rgba(20,40,30,.35)}
+@media (max-width:600px){
+  .stage{padding:0}
+  .phone{max-width:none;max-height:none;border:0;border-radius:0;box-shadow:none}
+}
+
+#top{display:flex;align-items:center;gap:10px;min-height:58px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--surface)}
+.brand{font-family:var(--f-display);font-size:24px;letter-spacing:.5px;color:var(--pine);line-height:1}
+.loc{margin-left:auto;display:flex;align-items:center;gap:4px;font-size:12.5px;color:var(--muted);white-space:nowrap;min-width:0;overflow:hidden}
+.me{flex:none;width:28px;height:28px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.iconbtn{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:10px;background:transparent;flex:none}
+.iconbtn:hover{background:var(--sunken)}
+.toptitle{font-weight:600;font-size:16px}
+
+main#view{flex:1;overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column}
+.pad{padding:18px 16px 24px;display:flex;flex-direction:column;gap:22px}
+.banner{margin:12px 16px 0;padding:10px 12px;border-radius:12px;font-size:13px;background:var(--amber-soft);color:var(--ink)}
+
+#tabs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);background:var(--surface);padding-bottom:env(safe-area-inset-bottom,0px)}
+#tabs button{border:0;background:none;padding:9px 2px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;color:var(--muted)}
+#tabs button[aria-current="page"]{color:var(--pine);font-weight:600}
+#tabs svg{width:22px;height:22px}
+
+.eyebrow{font-size:12px;letter-spacing:.06em;color:var(--amber);font-weight:600}
+.h-display{font-family:var(--f-display);font-weight:400;font-size:28px;line-height:1.2}
+.h-sec{font-size:15px;font-weight:700;display:flex;align-items:baseline;gap:8px}
+.h-sec small{font-weight:500;font-size:12px;color:var(--muted)}
+.muted{color:var(--muted)}
+.fine{font-size:12px;color:var(--muted)}
+.sec{display:flex;flex-direction:column;gap:10px}
+.stack{display:flex;flex-direction:column;gap:8px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:13.5px}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--surface)}
+.seg{display:inline-flex;background:var(--sunken);border-radius:12px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;border-radius:9px;padding:7px 14px;font-size:13.5px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.seg.small button{padding:4px 10px;font-size:12.5px}
+.seg.full{display:flex}
+.seg.full button{flex:1}
+
+.cards{display:flex;flex-direction:column;gap:10px}
+.card{width:100%;text-align:left;display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:start;padding:12px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.card:hover{border-color:var(--pine)}
+.card .body{min-width:0;display:flex;flex-direction:column;gap:3px}
+.card .name{font-weight:700;font-size:15.5px;overflow-wrap:anywhere}
+.card .meta{font-size:12.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
+.card .items{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .price{margin-top:4px;display:flex;align-items:baseline;gap:4px;flex-wrap:wrap}
+.price b{font-family:var(--f-num);font-size:16px;font-weight:600}
+.price span{font-size:12px;color:var(--muted)}
+.art{aspect-ratio:1/1;max-width:100%;border-radius:12px;display:grid;place-items:center;background:var(--pine-soft);color:var(--pine)}
+.art.warm{background:var(--amber-soft);color:var(--amber)}
+.art svg{width:72%;height:auto}
+.art.hero{aspect-ratio:16/8;border-radius:18px}
+.art.hero svg{width:44%}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.tag{display:inline-flex;align-items:center;gap:3px;font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--sunken);color:var(--muted)}
+.tag.pine{background:var(--pine-soft);color:var(--pine)}
+.tag.amber{background:var(--amber-soft);color:var(--amber)}
+
+.owner{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:var(--sunken)}
+.avatar{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--pine);color:var(--pine-ink);font-weight:700;object-fit:cover}
+.owner .who{min-width:0;flex:1}
+.owner .who b{display:block}
+.owner .who span{font-size:12.5px;color:var(--muted)}
+.list{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.list li{display:flex;justify-content:space-between;gap:12px;padding:11px 14px;font-size:14px}
+.list li+li{border-top:1px solid var(--line)}
+.list li span:first-child{min-width:0;overflow-wrap:anywhere}
+.list li span:last-child{color:var(--muted);font-size:13px;text-align:right}
+.linkcard{width:100%;text-align:left;display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.linkcard:hover{border-color:var(--pine)}
+.linkcard .t{flex:1;min-width:0}
+.linkcard .t b{display:block;font-size:14px}
+.linkcard .t span{font-size:12.5px;color:var(--muted)}
+
+.ctabar{position:sticky;bottom:0;margin-top:auto;display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--line);background:var(--surface)}
+.ctabar .price{flex:none}
+.btn{border:0;border-radius:14px;padding:13px 18px;font-weight:700;font-size:15px;background:var(--pine);color:var(--pine-ink);flex:1;text-align:center}
+.btn:hover:not(:disabled){filter:brightness(1.07)}
+.btn:disabled{background:var(--line);color:var(--muted)}
+.btn.ghost{background:var(--sunken);color:var(--ink)}
+.btn.danger{background:var(--danger-soft);color:var(--danger)}
+.btn.sm{padding:8px 12px;font-size:13px;border-radius:10px;flex:none}
+
+.dates{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.date{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:1px}
+.date b{font-family:var(--f-num);font-size:15px;font-weight:600}
+.date small{font-size:11.5px;color:var(--muted)}
+.date[aria-pressed="true"]{background:var(--pine);border-color:var(--pine);color:var(--pine-ink)}
+.date[aria-pressed="true"] small{color:var(--pine-ink)}
+.date:disabled{background:var(--sunken);color:var(--muted);border-style:dashed}
+.date:disabled b{text-decoration:line-through;font-weight:500}
+.date.off{background:var(--amber-soft);border-color:var(--amber);color:var(--amber)}
+.date.off small{color:var(--amber)}
+.receipt{border:1px solid var(--line);border-radius:14px;padding:4px 14px;background:var(--sunken)}
+.receipt div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;font-size:14px}
+.receipt div+div{border-top:1px dashed var(--line)}
+.receipt .total{font-weight:700;font-size:15.5px}
+.receipt .num{font-weight:600}
+.note{font-size:12.5px;color:var(--muted);padding:10px 12px;border-radius:12px;border:1px solid var(--line)}
+
+.done{align-items:center;text-align:center;gap:6px;padding-top:30px}
+.badge-ok{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--pine-soft);color:var(--pine);margin-bottom:6px}
+
+.trip{width:100%;text-align:left;display:flex;flex-direction:column;gap:6px;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.trip:hover{border-color:var(--pine)}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;flex:none}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.pill.reserved{background:var(--amber-soft);color:var(--amber)}
+.pill.inUse{background:var(--pine-soft);color:var(--pine)}
+.pill.returned{background:var(--sunken);color:var(--muted)}
+.empty{padding:32px 16px;text-align:center;border:1px dashed var(--line);border-radius:16px;display:flex;flex-direction:column;gap:10px;align-items:center}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.steps li{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted);text-align:center}
+.steps li::before{content:"";height:4px;border-radius:2px;background:var(--line)}
+.steps li.on{color:var(--pine);font-weight:600}
+.steps li.on::before{background:var(--pine)}
+
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.slot{position:relative;aspect-ratio:4/3;max-width:100%;border-radius:12px;overflow:hidden;border:1.5px dashed var(--line);background:var(--sunken);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--muted);font-size:13px;text-align:center;padding:6px}
+label.slot{cursor:pointer}
+label.slot:hover{border-color:var(--pine);color:var(--pine)}
+.slot.filled{border:1px solid var(--line);padding:0}
+.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:zoom-in}
+.slot .cap{position:absolute;left:6px;bottom:6px;font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:6px;background:rgba(10,20,15,.68);color:#fff}
+.slot .x{position:absolute;right:6px;top:6px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(10,20,15,.68);color:#fff;display:grid;place-items:center;font-size:15px;line-height:1}
+.compare{display:grid;grid-template-columns:auto 1fr 1fr;gap:6px 8px;align-items:center}
+.compare .lab{font-size:12.5px;color:var(--muted);min-width:42px}
+.compare .hd{font-size:12px;font-weight:600;color:var(--muted);text-align:center}
+.thumb{display:block;width:100%;aspect-ratio:4/3;border-radius:8px;overflow:hidden;border:0;padding:0;background:var(--sunken);cursor:zoom-in}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{padding:12px;border-radius:14px;background:var(--sunken)}
+.stat b{display:block;font-family:var(--f-num);font-size:20px;font-weight:600}
+.stat span{font-size:12px;color:var(--muted)}
+.timeline{display:flex;flex-direction:column;border-left:2px solid var(--line);margin-left:6px}
+.entry{position:relative;padding:0 0 22px 18px;display:flex;flex-direction:column;gap:8px}
+.entry::before{content:"";position:absolute;left:-7px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--pine)}
+.entry .hd{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.entry .hd b{font-family:var(--f-num);font-weight:600}
+.strip{display:grid;grid-template-columns:auto repeat(4,1fr);gap:5px;align-items:center}
+.strip .lab{font-size:11.5px;color:var(--muted);padding-right:4px}
+
+/* Forms */
+.field{display:flex;flex-direction:column;gap:5px}
+.field > span{font-size:13px;font-weight:600}
+.input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface);min-width:0}
+.input:focus{outline:2px solid var(--pine);outline-offset:-1px;border-color:transparent}
+textarea.input{resize:vertical;min-height:70px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.itemrow{display:grid;grid-template-columns:1.6fr 1fr;gap:8px}
+.check{display:flex;align-items:center;gap:8px;font-size:14px}
+.check input{width:18px;height:18px;accent-color:var(--pine)}
+.err{font-size:12.5px;color:var(--danger)}
+
+.guide{display:none;width:280px;align-self:center;flex-direction:column;gap:16px}
+@media (min-width:960px){.guide{display:flex}}
+.guide .scn{font-size:13.5px;color:var(--muted)}
+.gsteps{display:flex;flex-direction:column;gap:6px}
+.gsteps li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:12px;border:1px solid transparent;font-size:13.5px}
+.gsteps li .n{font-family:var(--f-num);font-weight:600;color:var(--muted)}
+.gsteps li small{display:block;font-size:12px;color:var(--muted)}
+.gsteps li.on{background:var(--surface);border-color:var(--line)}
+.gsteps li.on .n{color:var(--pine)}
+.gsteps li.past{opacity:.6}
+
+#lightbox{position:fixed;inset:0;z-index:20;background:rgba(5,10,8,.86);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px 16px}
+#lightbox img{max-width:min(92vw,720px);max-height:76%;border-radius:12px}
+#lightbox p{color:#fff;font-size:14px}
+#lightbox button{border:0;border-radius:10px;padding:8px 16px;background:#fff;color:#111;font-weight:600}
+#toast{position:fixed;left:50%;bottom:max(28px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;max-width:min(380px,calc(100vw - 32px));background:var(--ink);color:var(--surface);padding:11px 16px;border-radius:12px;font-size:13.5px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.spin{width:22px;height:22px;border-radius:50%;border:2.5px solid var(--line);border-top-color:var(--pine)}
+@media (prefers-reduced-motion:no-preference){
+  .spin{animation:sp 0.9s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+}
+</style>
+</head>
+<body>
+<div class="stage">
+  <aside class="guide" aria-label="시연 시나리오">
+    <div class="brand">주말창고</div>
+    <p class="scn">금요일 저녁, 첫 캠핑을 준비하는 태현이 집 근처에서 장비를 빌린다.</p>
+    <ol class="gsteps" id="gsteps"></ol>
+    <p class="fine">보유자는 '내 장비' 탭에서 장비를 등록하고, 대여 불가일을 막고, 들어온 예약을 확인해요. 예약과 사진은 이 브라우저에만 저장돼요.</p>
+    <button class="btn sm ghost" data-act="reset" style="align-self:flex-start">시연 데이터 초기화</button>
+  </aside>
+  <div class="phone">
+    <header id="top"></header>
+    <main id="view"></main>
+    <nav id="tabs" aria-label="주요 메뉴"></nav>
+  </div>
+</div>
+<div id="lightbox" hidden></div>
+<div id="toast" role="status" hidden></div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- constants ---------- */
+const CATS = [["all","전체"],["camp","캠핑 세트"],["light","조명"],["fire","화로"],["etc","기타"]];
+const ARTOF = {camp:"tent", light:"lantern", fire:"fire", etc:"pack"};
+const COACH_FEE = 10000;
+const PAD_SLOTS = ["전체 모습","구성품","보관 가방","기타"];
+const DISTS = [400,800,1200,1600,2000];
+const ACTIVE = b => b.status==="reserved" || b.status==="inUse";
+const STATUS = {reserved:"인수 대기", inUse:"이용 중", returned:"반납 완료"};
+
+/* ---------- live state ---------- */
+let db = null, user = null, assets = null;
+let me = {id:null, name:"", avatarUrl:""}, canWrite = null;
+let phase = "loading";            // loading | ready | slow | nodb
+let sets = [], bookings = [], gotSets = false, gotBookings = false;
+const profiles = {}, pendingProfiles = new Set(), photoUrl = {};
+let ui = { tab:"explore", stack:[{view:"explore"}], cat:"all", sort:"dist", booking:null, armed:null, uploading:{}, form:null, formErr:"" };
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const won = n => (+n||0).toLocaleString("ko-KR")+"원";
+const dist = m => m<1000 ? m+"m" : (m/1000).toFixed(1).replace(/\.0$/,"")+"km";
+const DOW = "일월화수목금토";
+const pad2 = n => String(n).padStart(2,"0");
+const ymd = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+const parse = s => { const [y,m,d] = s.split("-").map(Number); return new Date(y,m-1,d); };
+const addDays = (s,n) => { const d = parse(s); d.setDate(d.getDate()+n); return ymd(d); };
+const fmt = s => { if(!s) return ""; const d = parse(s); return `${d.getMonth()+1}/${d.getDate()}(${DOW[d.getDay()]})`; };
+const fmtTime = iso => { if(!iso) return ""; const d = new Date(iso); return `${d.getMonth()+1}/${d.getDate()} ${pad2(d.getHours())}:${pad2(d.getMinutes())}`; };
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+const hash = s => { let h=0; for(const c of String(s)) h = (h*31 + c.charCodeAt(0)) >>> 0; return h; };
+const setById = id => sets.find(s=>s.id===id);
+const artKind = s => s.art || ARTOF[s.cat] || "tent";
+const isWarm = s => typeof s.warm==="boolean" ? s.warm : hash(s.id)%2===1;
+const slotsOf = s => { const sl = (s && Array.isArray(s.slots) ? s.slots : []).slice(0,4); while(sl.length<4) sl.push(PAD_SLOTS[sl.length]); return sl; };
+const readonly = () => canWrite===false;
+
+function personName(id){
+  if(!id) return "이웃";
+  const p = profiles[id];
+  if(p && p.name) return p.name;
+  if(id===me.id) return me.name || "나";
+  return "이웃";
+}
+const ownerName = s => s.ownerLabel || (s.ownerId ? personName(s.ownerId) : "이웃");
+const renterName = b => b.renterLabel || (b.renterId ? personName(b.renterId) : "이웃");
+const isMine = s => !!(s.ownerId && me.id && s.ownerId===me.id);
+
+function ensureProfiles(){
+  if(!user) return;
+  const ids = new Set();
+  sets.forEach(s=>s.ownerId && ids.add(s.ownerId));
+  bookings.forEach(b=>b.renterId && ids.add(b.renterId));
+  const missing = [...ids].filter(i=>!(i in profiles) && !pendingProfiles.has(i)).slice(0,64);
+  if(!missing.length) return;
+  missing.forEach(i=>pendingProfiles.add(i));
+  user.profiles(missing).then(ps=>{
+    missing.forEach(i=>{ profiles[i] = (ps && ps[i]) || {name:""}; pendingProfiles.delete(i); });
+    render();
+  }).catch(()=>missing.forEach(i=>{ profiles[i] = {name:""}; pendingProfiles.delete(i); }));
+}
+
+function history(setId){
+  return bookings.filter(b=>b.setId===setId && b.status==="returned").sort((a,b)=>(b.start||"").localeCompare(a.start||""));
+}
+function upcomingDates(){
+  const out = [], t = new Date();
+  for(let i=1; out.length<12 && i<40; i++){
+    const d = new Date(t.getFullYear(), t.getMonth(), t.getDate()+i);
+    if([5,6,0].includes(d.getDay())) out.push(ymd(d));
+  }
+  return out;
+}
+function nextDays(n){ const out=[], t=new Date(); for(let i=1;i<=n;i++) out.push(ymd(new Date(t.getFullYear(),t.getMonth(),t.getDate()+i))); return out; }
+function isBlocked(set, date, exceptId){
+  if(Array.isArray(set.blocked) && set.blocked.includes(date)) return "owner";
+  const booked = bookings.some(b=>b.id!==exceptId && b.setId===set.id && ACTIVE(b) && date>=b.start && date<addDays(b.start,b.nights||1));
+  return booked ? "booked" : false;
+}
+
+/* ---------- photos ---------- */
+const sampleCache = {};
+const PH = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 3'%3E%3Crect width='4' height='3' fill='%23889990'/%3E%3C/svg%3E";
+function resolvePhoto(p){
+  if(!p) return "";
+  if(String(p).startsWith("data:")) return p;
+  if(!String(p).startsWith("sample:")){ if(photoUrl[p]) return photoUrl[p]; loadPhoto(p); return PH; }
+  if(sampleCache[p]) return sampleCache[p];
+  const [, setId, stage, idx] = p.split(":");
+  const set = setById(setId);
+  const label = set ? slotsOf(set)[+idx] : "장비";
+  const c = document.createElement("canvas"); c.width = 320; c.height = 240;
+  const g = c.getContext("2d");
+  const pal = set && isWarm(set) ? ["#C98A2E","#7A4F12"] : ["#3E7A5E","#173F2D"];
+  const grad = g.createLinearGradient(0,0,0,240); grad.addColorStop(0,pal[0]); grad.addColorStop(1,pal[1]);
+  g.fillStyle = grad; g.fillRect(0,0,320,240);
+  g.fillStyle = "rgba(255,255,255,.08)"; g.fillRect(0,170,320,70);
+  g.fillStyle = "rgba(255,255,255,.85)";
+  g.beginPath(); g.moveTo(110,170); g.lineTo(160,92+(+idx||0)*6); g.lineTo(210,170); g.closePath(); g.fill();
+  g.fillStyle = "rgba(0,0,0,.25)"; g.fillRect(150,140,20,30);
+  g.fillStyle = "#fff"; g.font = "600 20px 'IBM Plex Sans KR', sans-serif"; g.fillText(label, 16, 34);
+  g.font = "13px 'IBM Plex Sans KR', sans-serif"; g.fillStyle = "rgba(255,255,255,.8)";
+  g.fillText(stage==="in" ? "인수 사진" : "반납 사진", 16, 56);
+  g.fillText("샘플", 280, 228);
+  return sampleCache[p] = c.toDataURL("image/jpeg", .8);
+}
+function toJpeg(file){
+  return new Promise((res, rej)=>{
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = ()=>{
+      const max = 1280, s = Math.min(1, max/Math.max(img.width, img.height));
+      const c = document.createElement("canvas"); c.width = Math.round(img.width*s); c.height = Math.round(img.height*s);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      c.toBlob(b=> b ? res(b) : rej(new Error("encode")), "image/jpeg", .82);
+    };
+    img.onerror = ()=>{ URL.revokeObjectURL(url); rej(new Error("decode")); };
+    img.src = url;
+  });
+}
+
+/* ---------- writes ---------- */
+async function write(fn){
+  if(!db){ toast("저장소에 연결되지 않아 저장하지 못했어요."); return false; }
+  for(let attempt=0; attempt<2; attempt++){
+    try{ await fn(); return true; }
+    catch(e){
+      const c = e && e.code;
+      if(c==="unavailable" && attempt===0){ await sleep(400+Math.random()*600); continue; }
+      if(c==="invalid_argument" || c==="not_granted"){ canWrite = false; toast("이 링크에서는 보기만 할 수 있어요. 예약하려면 편집 권한이 필요해요."); render(); return false; }
+      if(c==="quota_exceeded"){ toast("저장 공간이 가득 찼어요. 오래된 기록을 지운 뒤 다시 해 주세요."); return false; }
+      if(c==="revoked"){ toast("접근 권한이 바뀌어 더 이상 저장할 수 없어요."); return false; }
+      toast("저장하지 못했어요. 잠시 후 다시 시도해 주세요."); return false;
+    }
+  }
+  return false;
+}
+
+/* ---------- icons ---------- */
+const I = {
+  back:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  pin:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2" stroke-linecap="round"/></svg>',
+  ticket:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 7h16v3a2 2 0 000 4v3H4v-3a2 2 0 000-4z"/><path d="M14 7v10" stroke-dasharray="2 2"/></svg>',
+  box:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3.5 8L12 4l8.5 4v8.5L12 20.5l-8.5-4z"/><path d="M3.5 8L12 12l8.5-4M12 12v8.5"/></svg>',
+  book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h11v18H6a2 2 0 01-2-2V5a2 2 0 012-2z"/><path d="M8 8h6M8 12h6M8 16h3" stroke-linecap="round"/></svg>',
+  cam:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+  check:'<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  chev:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>',
+  plus:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>'
+};
+const ART = {
+  tent:'<svg viewBox="0 0 120 80" fill="currentColor"><path d="M60 10L18 70h84z" opacity=".9"/><path d="M60 10l-12 60h24z" fill="var(--surface)" opacity=".85"/><path d="M8 72h104" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="98" cy="18" r="6" opacity=".5"/></svg>',
+  lantern:'<svg viewBox="0 0 120 80" fill="currentColor"><path d="M52 14a8 8 0 0116 0" fill="none" stroke="currentColor" stroke-width="3"/><rect x="46" y="20" width="28" height="6" rx="2"/><rect x="48" y="28" width="24" height="34" rx="6" opacity=".55"/><ellipse cx="60" cy="45" rx="6" ry="9" fill="var(--surface)" opacity=".9"/><rect x="44" y="62" width="32" height="7" rx="2"/></svg>',
+  fire:'<svg viewBox="0 0 120 80" fill="currentColor"><path d="M60 12c8 12 18 18 18 32a18 18 0 01-36 0c0-8 4-12 8-16 0 6 3 9 6 9-2-10 0-17 4-25z" opacity=".9"/><path d="M60 40c4 5 8 8 8 13a8 8 0 01-16 0c0-5 4-8 8-13z" fill="var(--surface)" opacity=".85"/><path d="M30 72l60-8M30 64l60 8" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>',
+  pack:'<svg viewBox="0 0 120 80" fill="currentColor"><path d="M50 14h20a4 4 0 014 4v4H46v-4a4 4 0 014-4z" opacity=".7"/><rect x="40" y="22" width="40" height="50" rx="12" opacity=".9"/><rect x="48" y="44" width="24" height="16" rx="4" fill="var(--surface)" opacity=".8"/><path d="M40 34h40" stroke="var(--surface)" stroke-width="3" opacity=".6"/></svg>'
+};
+const art = (s, hero) => `<div class="art${isWarm(s)?" warm":""}${hero?" hero":""}" aria-hidden="true">${ART[artKind(s)]||ART.tent}</div>`;
+
+/* ---------- navigation ---------- */
+const cur = () => ui.stack[ui.stack.length-1];
+function go(view, params){ ui.armed = null; ui.stack.push(Object.assign({view}, params||{})); render(true); }
+function back(){ ui.armed = null; if(ui.stack.length>1){ ui.stack.pop(); render(true); } }
+function tab(t){ ui.armed = null; ui.tab = t; ui.stack = [{view:t}]; render(true); }
+
+/* ---------- views ---------- */
+function vLoading(){
+  if(phase==="nodb") return `<div class="pad"><div class="empty"><b>저장 기능을 쓸 수 없어요</b><p class="fine">이 브라우저에서 저장 기능을 쓸 수 없어요. 시크릿 창이 아니라 일반 창에서 열어 주세요.</p></div></div>`;
+  return `<div class="pad" style="align-items:center;padding-top:60px"><div class="spin" role="img" aria-label="불러오는 중"></div>
+    <p class="fine">${phase==="slow"?"세트 정보를 아직 받지 못했어요. 연결이 느린 것 같아요.":"동네 장비를 불러오는 중이에요…"}</p></div>`;
+}
+
+function vExplore(){
+  let list = sets.filter(s=>ui.cat==="all" || s.cat===ui.cat);
+  list = list.slice().sort((a,b)=> ui.sort==="dist" ? (a.dist||0)-(b.dist||0) : (a.price||0)-(b.price||0));
+  return `<div class="pad">
+    <section class="stack">
+      <p class="eyebrow">${me.name?esc(me.name)+"님, ":""}이번 주말 처음 해 보는 취미</p>
+      <h1 class="h-display">가까운 취미 장비 찾기</h1>
+    </section>
+    <div class="chips" role="group" aria-label="분류">
+      ${CATS.map(([k,l])=>`<button class="chip" data-act="cat" data-v="${k}" aria-pressed="${ui.cat===k}">${l}</button>`).join("")}
+    </div>
+    <div class="sec">
+      <div class="row">
+        <span class="fine">${list.length}개 세트 · 반경 2km</span>
+        <div class="seg small" role="group" aria-label="정렬">
+          <button data-act="sort" data-v="dist" aria-pressed="${ui.sort==="dist"}">가까운 순</button>
+          <button data-act="sort" data-v="price" aria-pressed="${ui.sort==="price"}">낮은 가격순</button>
+        </div>
+      </div>
+      ${list.length?`<ul class="cards">${list.map(s=>{
+        const n = history(s.id).length;
+        return `<li><button class="card" data-act="open-set" data-id="${esc(s.id)}">
+          ${art(s)}
+          <div class="body">
+            <span class="name">${esc(s.name)}</span>
+            <span class="meta"><span class="num">${dist(s.dist||0)}</span><span>·</span><span>${esc(ownerName(s))}님${isMine(s)?" (나)":""}</span></span>
+            <span class="items">${(s.items||[]).map(i=>esc(i.n)).join(" · ")}</span>
+            <span class="price"><b>${won(s.price)}</b><span>/ 1박</span></span>
+            <span class="tags">${s.coaching?'<span class="tag pine">15분 코칭</span>':""}${n?`<span class="tag">이력 ${n}회</span>`:'<span class="tag amber">첫 대여</span>'}</span>
+          </div>
+        </button></li>`;}).join("")}</ul>`
+      :`<div class="empty"><b>${sets.length?"이 분류에는 아직 세트가 없어요":"아직 등록된 세트가 없어요"}</b><p class="fine">'내 장비' 탭에서 첫 장비를 등록해 보세요.</p></div>`}
+    </div>
+  </div>`;
+}
+
+function vDetail({id}){
+  const s = setById(id); if(!s) return gone();
+  const h = history(id), dates = upcomingDates().filter(d=>!isBlocked(s,d)).slice(0,4);
+  const ownerCount = sets.filter(x=>x.ownerId ? x.ownerId===s.ownerId : x.ownerLabel===s.ownerLabel).reduce((n,x)=>n+history(x.id).length,0);
+  const av = s.ownerId && profiles[s.ownerId] && profiles[s.ownerId].avatarUrl;
+  return `<div class="pad">
+    ${art(s,true)}
+    <section class="stack">
+      <h1 class="h-display">${esc(s.name)}</h1>
+      ${s.desc?`<p class="muted">${esc(s.desc)}</p>`:""}
+      <div class="tags"><span class="tag">${I.pin}<span class="num">${dist(s.dist||0)}</span></span>${s.coaching?'<span class="tag pine">15분 세팅 코칭 가능</span>':'<span class="tag">코칭 없음</span>'}<span class="tag">사용법 카드 포함</span></div>
+    </section>
+    <div class="owner">
+      ${av?`<img class="avatar" src="${esc(av)}" alt="">`:`<div class="avatar">${esc(ownerName(s)[0]||"이")}</div>`}
+      <div class="who"><b>${esc(ownerName(s))}님${isMine(s)?" (나)":""}</b><span>수령 장소 · ${esc(s.place||"보유자와 채팅으로 정해요")}</span></div>
+      ${ownerCount>=3?'<span class="tag amber">동네 캠핑 멘토</span>':""}
+    </div>
+    <section class="sec">
+      <h2 class="h-sec">구성 장비 <small>${(s.items||[]).length}가지</small></h2>
+      <ul class="list">${(s.items||[]).map(i=>`<li><span>${esc(i.n)}</span><span>${esc(i.c||"")}</span></li>`).join("")}</ul>
+    </section>
+    <section class="sec">
+      <h2 class="h-sec">가까운 대여 가능일</h2>
+      <div class="tags">${dates.map(d=>`<span class="tag pine num">${fmt(d)}</span>`).join("") || '<span class="fine">3주 안에 가능한 날이 없어요.</span>'}</div>
+    </section>
+    <section class="sec">
+      <h2 class="h-sec">장비 이력서</h2>
+      <button class="linkcard" data-act="open-history" data-id="${esc(s.id)}">
+        <div class="t"><b>누적 대여 ${h.length}회</b><span>${h.length?`최근 반납 ${fmt(addDays(h[0].start,h[0].nights||1))} · 인수·반납 사진 ${h.length*8}장`:"아직 대여 기록이 없어요"}</span></div>
+        ${I.chev}
+      </button>
+    </section>
+  </div>
+  <div class="ctabar">
+    <span class="price"><b>${won(s.price)}</b><span>/ 1박</span></span>
+    ${isMine(s)?`<button class="btn ghost" data-act="open-owner" data-id="${esc(s.id)}">내 장비 관리</button>`
+    :`<button class="btn" data-act="book" data-id="${esc(s.id)}" ${readonly()?"disabled":""}>${readonly()?"보기 전용 권한":"날짜·옵션 선택"}</button>`}
+  </div>`;
+}
+
+function vBook({id}){
+  const s = setById(id); if(!s) return gone();
+  const dates = upcomingDates(), b = ui.booking;
+  if(b.date && isBlocked(s,b.date)) b.date = null;
+  const canTwo = b.date && !isBlocked(s, addDays(b.date,1));
+  if(b.nights===2 && !canTwo) b.nights = 1;
+  const rent = (s.price||0) * b.nights, coach = (s.coaching && b.coaching) ? COACH_FEE : 0, total = rent + coach;
+  return `<div class="pad">
+    <div class="row" style="flex-wrap:nowrap">
+      <div style="width:56px;flex:none">${art(s)}</div>
+      <div style="flex:1;min-width:0"><b>${esc(s.name)}</b><p class="fine">${esc(ownerName(s))}님 · <span class="num">${dist(s.dist||0)}</span></p></div>
+    </div>
+    <section class="sec">
+      <h2 class="h-sec">대여 시작일 <small>금·토·일 수령</small></h2>
+      <div class="dates">${dates.map(d=>{
+        const bl = isBlocked(s,d), dd = parse(d);
+        return `<button class="date" data-act="date" data-v="${d}" aria-pressed="${b.date===d}" ${bl?"disabled":""} aria-label="${fmt(d)}${bl?" 예약 불가":""}">
+          <b>${dd.getMonth()+1}/${dd.getDate()}</b><small>${bl?(bl==="owner"?"보유자 사용":"예약됨"):DOW[dd.getDay()]+"요일"}</small></button>`;}).join("")}</div>
+    </section>
+    <section class="sec">
+      <h2 class="h-sec">기간</h2>
+      <div class="seg full" role="group" aria-label="기간">
+        <button data-act="nights" data-v="1" aria-pressed="${b.nights===1}">1박 2일</button>
+        <button data-act="nights" data-v="2" aria-pressed="${b.nights===2}" ${canTwo?"":"disabled"}>2박 3일</button>
+      </div>
+      <p class="fine">${b.date?`${fmt(b.date)} 저녁 수령 → ${fmt(addDays(b.date,b.nights))} 오후 반납`:"시작일을 먼저 골라 주세요."}${b.date && !canTwo?" · 다음 날이 막혀 있어 1박만 가능해요.":""}</p>
+    </section>
+    <section class="sec">
+      <h2 class="h-sec">추가 옵션</h2>
+      ${s.coaching?`<div class="seg full" role="group" aria-label="15분 세팅 코칭">
+          <button data-act="coach" data-v="1" aria-pressed="${!!b.coaching}">코칭 추가 +${won(COACH_FEE)}</button>
+          <button data-act="coach" data-v="0" aria-pressed="${!b.coaching}">없음</button>
+        </div>
+        <p class="fine">장비를 건네받을 때 ${esc(ownerName(s))}님이 15분 동안 설치와 사용법을 알려 드려요.</p>`
+      :`<p class="note">이 세트는 코칭을 제공하지 않아요. 사용법 카드는 함께 드려요.</p>`}
+    </section>
+    <section class="sec">
+      <h2 class="h-sec">결제 예정 금액</h2>
+      <div class="receipt">
+        <div><span>대여료 ${won(s.price)} × ${b.nights}박</span><span class="num">${won(rent)}</span></div>
+        ${s.coaching?`<div><span>15분 세팅 코칭</span><span class="num">${won(coach)}</span></div>`:""}
+        <div><span>사용법 카드</span><span class="num">무료</span></div>
+        <div class="total"><span>합계</span><span class="num">${won(total)}</span></div>
+      </div>
+      <p class="note">결제는 장비를 받을 때 보유자와 직접 해요. 파손 보험은 보험사 제휴 후 추가할 예정이고, 지금은 인수·반납 사진으로 장비 상태를 기록해요.</p>
+    </section>
+  </div>
+  <div class="ctabar">
+    <button class="btn" data-act="confirm-book" data-id="${esc(s.id)}" ${b.date && !ui.busy?"":"disabled"}>${ui.busy?"예약하는 중…":b.date?`예약 확정 · ${won(total)}`:"시작일을 골라 주세요"}</button>
+  </div>`;
+}
+
+function vDone({bid}){
+  const r = bookings.find(x=>x.id===bid); if(!r) return vLoading();
+  const s = setById(r.setId); if(!s) return gone();
+  return `<div class="pad done">
+    <div class="badge-ok">${I.check}</div>
+    <h1 class="h-display">예약이 확정됐어요</h1>
+    <p class="muted">예약 내용이 이 기기에 저장됐어요. 수령 장소에서 ${esc(ownerName(s))}님을 만나세요.</p>
+  </div>
+  <div class="pad" style="padding-top:0">
+    <ul class="list">
+      <li><span>세트</span><span>${esc(s.name)}</span></li>
+      <li><span>일정</span><span class="num">${fmt(r.start)} ~ ${fmt(addDays(r.start,r.nights))}</span></li>
+      <li><span>수령 장소</span><span>${esc(s.place||"보유자와 채팅으로 정해요")}</span></li>
+      <li><span>코칭</span><span>${r.coaching?"15분 세팅 코칭":"없음"}</span></li>
+      <li><span>합계</span><span class="num">${won(r.total)}</span></li>
+    </ul>
+    <p class="note">장비를 받을 때 인수 사진 4장을 찍어 상태를 기록해요. 반납할 때도 같은 구도로 4장을 찍으면 장비 이력서에 저장돼요.</p>
+    <div class="stack">
+      <button class="btn" data-act="open-trip" data-id="${esc(r.id)}">인수 사진 등록하기</button>
+      <button class="btn ghost" data-act="tab" data-v="explore">탐색으로 돌아가기</button>
+    </div>
+  </div>`;
+}
+
+function vTrips(){
+  const list = bookings.filter(b=>me.id && b.renterId===me.id).sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""));
+  return `<div class="pad">
+    <section class="stack"><p class="eyebrow">내 예약</p><h1 class="h-display">빌린 장비</h1></section>
+    ${list.length?`<ul class="cards">${list.map(r=>{
+      const s = setById(r.setId) || {name:"삭제된 세트"};
+      const nIn = (r.checkin||[]).filter(Boolean).length, nOut = (r.checkout||[]).filter(Boolean).length;
+      const hint = r.status==="reserved" ? `인수 사진 ${nIn}/4` : r.status==="inUse" ? `반납 사진 ${nOut}/4` : "인수·반납 사진 8장 저장됨";
+      return `<li><button class="trip" data-act="open-trip" data-id="${esc(r.id)}">
+        <div class="row" style="flex-wrap:nowrap"><b style="min-width:0">${esc(s.name)}</b><span class="pill ${r.status}">${STATUS[r.status]||""}</span></div>
+        <span class="fine num">${fmt(r.start)} ~ ${fmt(addDays(r.start,r.nights||1))} · ${s.id?esc(ownerName(s))+"님 · ":""}${won(r.total)}</span>
+        <span class="fine">${hint}</span>
+      </button></li>`;}).join("")}</ul>`
+    :`<div class="empty"><b>아직 예약이 없어요</b><p class="fine">${me.id?"탐색에서 세트를 골라 예약하면 여기에 나타나요.":"로그인 정보를 확인할 수 없어 내 예약을 표시할 수 없어요."}</p><button class="btn sm" data-act="tab" data-v="explore">세트 둘러보기</button></div>`}
+  </div>`;
+}
+
+function slotGrid(r, stage, editable){
+  const s = setById(r.setId), labels = slotsOf(s), arr = (stage==="in" ? r.checkin : r.checkout) || [];
+  return `<div class="slots">${labels.map((label,i)=>{
+    const p = arr[i], key = stage+"-"+i;
+    if(p) return `<div class="slot filled"><img src="${esc(resolvePhoto(p))}" alt="${esc(label)} ${stage==="in"?"인수":"반납"} 사진" data-act="zoom" data-bid="${esc(r.id)}" data-stage="${stage}" data-i="${i}">
+      <span class="cap">${esc(label)}</span>${editable?`<button class="x" data-act="clear" data-stage="${stage}" data-i="${i}" aria-label="${esc(label)} 사진 지우기">×</button>`:""}</div>`;
+    if(ui.uploading[key]) return `<div class="slot"><div class="spin"></div><span>올리는 중</span></div>`;
+    if(!editable) return `<div class="slot"><span>${esc(label)}</span><span class="fine">사진 없음</span></div>`;
+    if(!assets) return `<div class="slot"><span>${esc(label)}</span><span class="fine">사진 올리기는 편집 권한이 필요해요</span></div>`;
+    return `<label class="slot" for="f-${key}">${I.cam}<span>${esc(label)}</span>
+      <input type="file" id="f-${key}" accept="image/*" capture="environment" data-stage="${stage}" data-i="${i}" hidden></label>`;
+  }).join("")}</div>`;
+}
+
+function vTrip({id}){
+  const r = bookings.find(x=>x.id===id); if(!r) return gone();
+  const s = setById(r.setId) || {id:r.setId, name:"삭제된 세트", slots:[]};
+  const mineTrip = me.id && r.renterId===me.id;
+  const ed = mineTrip && !readonly();
+  const nIn = (r.checkin||[]).filter(Boolean).length, nOut = (r.checkout||[]).filter(Boolean).length;
+  const k = ["reserved","inUse","returned"].indexOf(r.status);
+  const steps = [["예약 확정",true],["인수",k>=1],["이용",k>=1],["반납",k>=2]];
+  let body = "", cta = "";
+  if(r.status==="reserved"){
+    body = `<section class="sec">
+      <h2 class="h-sec">인수 전 사진 <small>${nIn}/4</small></h2>
+      <p class="fine">장비를 받는 자리에서 칸마다 한 장씩 찍어 주세요. 사진과 시각이 이 장비의 기록으로 저장돼요.</p>
+      ${slotGrid(r,"in",ed)}
+      ${ed?`<button class="btn sm ghost" data-act="sample" data-stage="in">빈 칸을 샘플 사진으로 채우기 (시연용)</button>`:""}
+    </section>
+    ${ed?`<button class="btn sm ${ui.armed==="cancel"?"danger":"ghost"}" data-act="cancel">${ui.armed==="cancel"?"한 번 더 누르면 예약이 취소돼요":"예약 취소"}</button>`:""}`;
+    cta = ed ? `<button class="btn" data-act="finish-in" ${nIn===4?"":"disabled"}>${nIn===4?"인수 완료":`인수 사진 ${4-nIn}장 남음`}</button>` : "";
+  } else if(r.status==="inUse"){
+    body = `<section class="sec">
+      <h2 class="h-sec">인수 전 사진 <small>${fmtTime(r.checkinAt)} 저장</small></h2>
+      ${slotGrid(r,"in",false)}
+    </section>
+    <section class="sec">
+      <h2 class="h-sec">반납 후 사진 <small>${nOut}/4</small></h2>
+      <p class="fine">인수 사진과 같은 구도로 찍으면 상태를 비교하기 쉬워요.</p>
+      ${slotGrid(r,"out",ed)}
+      ${ed?`<button class="btn sm ghost" data-act="sample" data-stage="out">빈 칸을 샘플 사진으로 채우기 (시연용)</button>`:""}
+    </section>`;
+    cta = ed ? `<button class="btn" data-act="finish-out" ${nOut===4?"":"disabled"}>${nOut===4?"반납 완료":`반납 사진 ${4-nOut}장 남음`}</button>` : "";
+  } else {
+    const L = slotsOf(s);
+    body = `<section class="sec">
+      <h2 class="h-sec">인수·반납 비교</h2>
+      <div class="compare">
+        <span></span><span class="hd">인수 <span class="num">${fmtTime(r.checkinAt)}</span></span><span class="hd">반납 <span class="num">${fmtTime(r.checkoutAt)}</span></span>
+        ${L.map((l,i)=>`<span class="lab">${esc(l)}</span>
+          <button class="thumb" data-act="zoom" data-bid="${esc(r.id)}" data-stage="in" data-i="${i}"><img src="${esc(resolvePhoto((r.checkin||[])[i]))}" alt="${esc(l)} 인수 사진"></button>
+          <button class="thumb" data-act="zoom" data-bid="${esc(r.id)}" data-stage="out" data-i="${i}"><img src="${esc(resolvePhoto((r.checkout||[])[i]))}" alt="${esc(l)} 반납 사진"></button>`).join("")}
+      </div>
+      <p class="note">이 기록은 장비 이력서에 쌓여서 다음 이용자와 보유자 모두 확인할 수 있어요.</p>
+    </section>`;
+    cta = setById(r.setId) ? `<button class="btn" data-act="open-history" data-id="${esc(r.setId)}">장비 이력서 보기</button>` : "";
+  }
+  return `<div class="pad">
+    <section class="stack">
+      <div class="row" style="flex-wrap:nowrap"><h1 class="h-display" style="font-size:24px;min-width:0">${esc(s.name)}</h1><span class="pill ${r.status}">${STATUS[r.status]||""}</span></div>
+      <p class="fine num">${fmt(r.start)} ~ ${fmt(addDays(r.start,r.nights||1))} · 대여자 ${esc(renterName(r))}${mineTrip?" (나)":""}${r.coaching?" · 코칭 포함":""}</p>
+    </section>
+    <ol class="steps" aria-label="진행 상태">${steps.map(([l,on])=>`<li class="${on?"on":""}">${l}</li>`).join("")}</ol>
+    ${!mineTrip && r.status!=="returned"?`<p class="note">대여자가 직접 사진을 올리고 인수·반납을 완료해요. 이 화면은 실시간으로 갱신돼요.</p>`:""}
+    ${body}
+  </div>
+  ${cta?`<div class="ctabar">${cta}</div>`:""}`;
+}
+
+/* --- owner side --- */
+function vMine(){
+  const mine = sets.filter(isMine);
+  return `<div class="pad">
+    <section class="stack"><p class="eyebrow">보유자</p><h1 class="h-display">내 장비</h1>
+    <p class="muted">놀고 있는 장비를 등록하면 이웃이 예약할 수 있어요. 쓸 날은 미리 막아 두세요.</p></section>
+    <button class="btn" data-act="register" ${readonly()||!me.id?"disabled":""}>${readonly()?"보기 전용 권한이라 등록할 수 없어요":!me.id?"로그인 정보가 없어 등록할 수 없어요":"장비 세트 등록하기"}</button>
+    ${mine.length?`<ul class="cards">${mine.map(s=>{
+      const act = bookings.filter(b=>b.setId===s.id && ACTIVE(b)).sort((a,b)=>a.start.localeCompare(b.start));
+      const nx = act[0];
+      return `<li><button class="card" data-act="open-owner" data-id="${esc(s.id)}">${art(s)}
+        <div class="body"><span class="name">${esc(s.name)}</span>
+        <span class="meta"><span>${won(s.price)} / 1박</span><span>·</span><span>누적 ${history(s.id).length}회</span></span>
+        <span class="items">${nx?`다음 예약 ${fmt(nx.start)} · ${esc(renterName(nx))}님`:"들어온 예약이 없어요"}</span>
+        <span class="tags">${act.length?`<span class="tag amber">진행 중 ${act.length}건</span>`:""}${(s.blocked||[]).length?`<span class="tag">대여 불가 ${(s.blocked||[]).length}일</span>`:""}</span></div>
+      </button></li>`;}).join("")}</ul>`
+    :`<div class="empty"><b>아직 등록한 장비가 없어요</b><p class="fine">텐트, 랜턴처럼 1년에 몇 번 안 쓰는 장비부터 올려 보세요.</p></div>`}
+    <div class="stack"><p class="fine">예약·사진·등록한 장비는 이 브라우저에만 저장돼요. 발표 전에 처음 상태로 돌리려면 아래 버튼을 두 번 누르세요.</p>
+    <button class="btn sm ghost" data-act="reset" style="align-self:flex-start">시연 데이터 초기화</button></div>
+  </div>`;
+}
+
+function vOwner({id}){
+  const s = setById(id); if(!s) return gone();
+  const list = bookings.filter(b=>b.setId===id).sort((a,b)=>(b.start||"").localeCompare(a.start||""));
+  const act = list.filter(ACTIVE);
+  const ed = isMine(s) && !readonly();
+  return `<div class="pad">
+    <div class="row" style="flex-wrap:nowrap">
+      <div style="width:56px;flex:none">${art(s)}</div>
+      <div style="flex:1;min-width:0"><h1 class="h-display" style="font-size:22px">${esc(s.name)}</h1><p class="fine">${won(s.price)} / 1박${s.place?" · "+esc(s.place):""}</p></div>
+    </div>
+    <section class="sec">
+      <h2 class="h-sec">들어온 예약 <small>진행 중 ${act.length}건</small></h2>
+      ${act.length?`<ul class="cards">${act.map(b=>`<li><button class="trip" data-act="open-trip" data-id="${esc(b.id)}">
+        <div class="row" style="flex-wrap:nowrap"><b>${esc(renterName(b))}님</b><span class="pill ${b.status}">${STATUS[b.status]}</span></div>
+        <span class="fine num">${fmt(b.start)} ~ ${fmt(addDays(b.start,b.nights||1))} · ${won(b.total)}${b.coaching?" · 코칭 포함":""}</span>
+      </button></li>`).join("")}</ul>`:`<p class="note">아직 진행 중인 예약이 없어요.</p>`}
+    </section>
+    <section class="sec">
+      <h2 class="h-sec">대여 불가일 <small>내가 쓸 날을 눌러 막아 두세요</small></h2>
+      <div class="dates">${nextDays(28).filter(d=>[5,6,0].includes(parse(d).getDay())).map(d=>{
+        const off = (s.blocked||[]).includes(d), bk = isBlocked(Object.assign({},s,{blocked:[]}), d), dd = parse(d);
+        return `<button class="date${off?" off":""}" data-act="toggle-off" data-v="${d}" ${!ed||bk?"disabled":""} aria-pressed="${off}">
+          <b>${dd.getMonth()+1}/${dd.getDate()}</b><small>${bk?"예약됨":off?"보유자 사용":DOW[dd.getDay()]+"요일"}</small></button>`;}).join("")}</div>
+    </section>
+    <section class="sec">
+      <h2 class="h-sec">장비 이력서</h2>
+      <button class="linkcard" data-act="open-history" data-id="${esc(s.id)}"><div class="t"><b>누적 대여 ${history(id).length}회</b><span>인수·반납 사진 기록 보기</span></div>${I.chev}</button>
+    </section>
+    ${ed?`<div class="stack">
+      <button class="btn ghost" data-act="edit-set" data-id="${esc(s.id)}">세트 정보 수정</button>
+      <button class="btn ${ui.armed==="del-set"?"danger":"ghost"}" data-act="del-set" data-id="${esc(s.id)}" ${act.length?"disabled":""}>${act.length?"진행 중인 예약이 있어 삭제할 수 없어요":ui.armed==="del-set"?"한 번 더 누르면 세트가 삭제돼요":"세트 삭제"}</button>
+    </div>`:""}
+  </div>`;
+}
+
+function blankForm(){ return {owner:me.name||"", name:"", cat:"camp", price:"", dist:"800", place:"", coaching:true, desc:"", items:[{n:"",c:"상태 좋음"},{n:"",c:"상태 좋음"},{n:"",c:"상태 좋음"},{n:"",c:"상태 좋음"}]}; }
+function vRegister({id}){
+  const f = ui.form;
+  return `<form class="pad" id="regform" novalidate>
+    <section class="stack"><p class="eyebrow">${id?"세트 정보 수정":"새 장비 세트"}</p><h1 class="h-display">${id?"세트 수정하기":"장비 등록하기"}</h1></section>
+    <label class="field"><span>보유자 표시 이름</span><input class="input" id="rf-owner" data-f="owner" maxlength="12" value="${esc(f.owner||"")}" placeholder="예: 남오름"></label>
+    <label class="field"><span>세트 이름</span><input class="input" id="rf-name" data-f="name" maxlength="30" value="${esc(f.name)}" placeholder="예: 첫 캠핑 1박 세트" required></label>
+    <div class="grid2">
+      <label class="field"><span>분류</span><select class="input" id="rf-cat" data-f="cat">${CATS.slice(1).map(([k,l])=>`<option value="${k}" ${f.cat===k?"selected":""}>${l}</option>`).join("")}</select></label>
+      <label class="field"><span>1박 대여료 (원)</span><input class="input num" id="rf-price" data-f="price" inputmode="numeric" value="${esc(f.price)}" placeholder="30000"></label>
+    </div>
+    <div class="grid2">
+      <label class="field"><span>동네 중심에서 거리</span><select class="input" id="rf-dist" data-f="dist">${DISTS.map(d=>`<option value="${d}" ${String(f.dist)===String(d)?"selected":""}>${dist(d)} 안</option>`).join("")}</select></label>
+      <label class="field"><span>수령 장소</span><input class="input" id="rf-place" data-f="place" maxlength="40" value="${esc(f.place)}" placeholder="예: 사창동 OO아파트 정문"></label>
+    </div>
+    <section class="sec">
+      <h2 class="h-sec">구성 장비 <small>2개 이상 · 사진 4칸의 이름이 돼요</small></h2>
+      ${f.items.map((it,i)=>`<div class="itemrow">
+        <input class="input" id="rf-i${i}n" data-f="i${i}n" maxlength="24" value="${esc(it.n)}" placeholder="장비 ${i+1}" aria-label="장비 ${i+1} 이름">
+        <input class="input" id="rf-i${i}c" data-f="i${i}c" maxlength="16" value="${esc(it.c)}" placeholder="상태" aria-label="장비 ${i+1} 상태">
+      </div>`).join("")}
+    </section>
+    <label class="check"><input type="checkbox" id="rf-coach" data-f="coaching" ${f.coaching?"checked":""}> 15분 세팅 코칭 제공 (+${won(COACH_FEE)})</label>
+    <label class="field"><span>소개</span><textarea class="input" id="rf-desc" data-f="desc" maxlength="200" placeholder="어떤 사람에게 맞는 세트인지 적어 주세요">${esc(f.desc)}</textarea></label>
+    ${ui.formErr?`<p class="err" role="alert">${esc(ui.formErr)}</p>`:""}
+    <button class="btn" type="submit" ${ui.busy?"disabled":""}>${ui.busy?"저장하는 중…":id?"수정 내용 저장":"등록하기"}</button>
+  </form>`;
+}
+
+function vHistory(){
+  return `<div class="pad">
+    <section class="stack"><p class="eyebrow">장비 이력서</p><h1 class="h-display">세트별 대여 기록</h1>
+    <p class="muted">대여할 때마다 인수·반납 사진이 장비별로 쌓여요. 빌리기 전에 관리 상태를 확인하세요.</p></section>
+    ${sets.length?`<ul class="cards">${sets.map(s=>{ const h = history(s.id);
+      return `<li><button class="card" data-act="open-history" data-id="${esc(s.id)}">${art(s)}
+        <div class="body"><span class="name">${esc(s.name)}</span>
+        <span class="meta">${esc(ownerName(s))}님 · <span class="num">${dist(s.dist||0)}</span></span>
+        <span class="items">${h.length?`누적 ${h.length}회 · 최근 ${fmt(h[0].start)} · 사진 ${h.length*8}장`:"아직 대여 기록이 없어요"}</span></div>
+      </button></li>`;}).join("")}</ul>`:`<div class="empty"><b>아직 등록된 세트가 없어요</b></div>`}
+  </div>`;
+}
+
+function vHistoryDetail({id}){
+  const s = setById(id); if(!s) return gone();
+  const h = history(id), coach = h.filter(x=>x.coaching).length, L = slotsOf(s);
+  return `<div class="pad">
+    <div class="row" style="flex-wrap:nowrap">
+      <div style="width:56px;flex:none">${art(s)}</div>
+      <div style="flex:1;min-width:0"><h1 class="h-display" style="font-size:22px">${esc(s.name)}</h1><p class="fine">${esc(ownerName(s))}님의 장비</p></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>${h.length}</b><span>누적 대여</span></div>
+      <div class="stat"><b>${coach}</b><span>코칭 이용</span></div>
+      <div class="stat"><b>${h.length*8}</b><span>상태 사진</span></div>
+    </div>
+    ${h.length?`<div class="timeline">${h.map(e=>`<div class="entry">
+      <div class="hd"><b>${fmt(e.start)} ~ ${fmt(addDays(e.start,e.nights||1))}</b><span class="fine">${esc(renterName(e))}${me.id&&e.renterId===me.id?" (나)":""}</span>${e.coaching?'<span class="tag pine">코칭</span>':""}</div>
+      <div class="strip"><span class="lab">인수</span>${L.map((l,i)=>`<button class="thumb" data-act="zoom" data-bid="${esc(e.id)}" data-stage="in" data-i="${i}"><img src="${esc(resolvePhoto((e.checkin||[])[i]))}" alt="${esc(l)} 인수"></button>`).join("")}</div>
+      <div class="strip"><span class="lab">반납</span>${L.map((l,i)=>`<button class="thumb" data-act="zoom" data-bid="${esc(e.id)}" data-stage="out" data-i="${i}"><img src="${esc(resolvePhoto((e.checkout||[])[i]))}" alt="${esc(l)} 반납"></button>`).join("")}</div>
+      <p class="fine">${esc(e.note || "반납 확인 완료")}</p>
+    </div>`).join("")}</div>`
+    :`<div class="empty"><b>아직 대여 기록이 없어요</b><p class="fine">첫 대여가 끝나면 인수·반납 사진이 여기에 쌓여요.</p></div>`}
+    ${isMine(s)?"":`<button class="btn ghost" data-act="open-set" data-id="${esc(s.id)}">이 세트 예약하러 가기</button>`}
+  </div>`;
+}
+const gone = () => `<div class="pad"><div class="empty"><b>찾을 수 없어요</b><p class="fine">삭제됐거나 아직 불러오지 못한 항목이에요.</p><button class="btn sm" data-act="tab" data-v="explore">탐색으로</button></div></div>`;
+
+/* ---------- render ---------- */
+const TITLES = {detail:"세트 자세히 보기", book:"예약·옵션 선택", done:"예약 완료", trip:"인수·반납 사진 기록", historyDetail:"장비 이력서", owner:"내 장비 관리", register:"장비 등록"};
+const ROOTS = ["explore","trips","mine","history"];
+function render(scrollTop){
+  const c = cur(), root = ROOTS.includes(c.view);
+  $("#top").innerHTML = root
+    ? `<span class="brand">주말창고</span><span class="loc">${I.pin}청주시 서원구 사창동 · 반경 2km</span>${me.avatarUrl?`<img class="me" src="${esc(me.avatarUrl)}" alt="${esc(me.name||"나")}">`:""}`
+    : `<button class="iconbtn" data-act="back" aria-label="뒤로">${I.back}</button><span class="toptitle">${TITLES[c.view]||""}</span>`;
+  const V = {explore:vExplore, detail:vDetail, book:vBook, done:vDone, trips:vTrips, trip:vTrip, mine:vMine, owner:vOwner, register:vRegister, history:vHistory, historyDetail:vHistoryDetail};
+  const ready = gotSets && gotBookings;
+  const main = $("#view"), keep = main.scrollTop;
+  const banner = readonly() && ready ? `<p class="banner">보기 전용 권한으로 열었어요. 예약하거나 장비를 등록하려면 공유한 사람에게 편집 권한을 요청하세요.</p>` : "";
+  main.innerHTML = banner + (ready || c.view==="register" ? V[c.view](c) : vLoading());
+  main.scrollTop = scrollTop ? 0 : keep;
+  const tabs = [["explore","탐색",I.search],["trips","내 예약",I.ticket],["mine","내 장비",I.box],["history","장비 이력",I.book]];
+  $("#tabs").innerHTML = tabs.map(([k,l,ic])=>`<button data-act="tab" data-v="${k}" ${ui.tab===k?'aria-current="page"':""}>${ic}<span>${l}</span></button>`).join("");
+  renderGuide();
+  if(ready) ensureProfiles();
+}
+
+function renderGuide(){
+  const c = cur();
+  const active = bookings.filter(b=>me.id && b.renterId===me.id).sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""))[0];
+  let step = 1;
+  if(c.view==="detail" || c.view==="book") step = 2;
+  else if(c.view==="done") step = 3;
+  else if(c.view==="trip"){ const r = bookings.find(x=>x.id===c.id); step = !r||r.status==="reserved"?3:r.status==="inUse"?4:5; }
+  else if(c.view==="trips" && active) step = active.status==="reserved"?3:active.status==="inUse"?4:5;
+  else if(c.view==="history" || c.view==="historyDetail") step = 5;
+  const G = [["탐색","근처 첫 캠핑 세트 찾기","기능 1"],["선택","날짜·코칭 옵션 고르고 예약","기능 2"],["인수","이웃에게 받으며 사진 4장","기능 3"],["이용","캠핑장에서 사용 (앱 밖)","인수 완료 후"],["반납","사진 4장 찍고 이력 갱신","기능 3·4"]];
+  $("#gsteps").innerHTML = G.map(([t,d,f],i)=>`<li class="${i+1===step?"on":i+1<step?"past":""}"><span class="n">${"①②③④⑤"[i]}</span><span><b>${t}</b> <small>${d} · ${f}</small></span></li>`).join("");
+}
+
+/* ---------- toast & lightbox ---------- */
+let toastT;
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(()=>t.hidden = true, 3000); }
+function zoom(src, cap){
+  const lb = $("#lightbox");
+  lb.innerHTML = `<img src="${esc(src)}" alt="${esc(cap)}"><p>${esc(cap)}</p><button data-act="close-lb">닫기</button>`;
+  lb.hidden = false; lb.querySelector("button").focus();
+}
+
+/* ---------- actions ---------- */
+const bRef = id => db.doc("bookings/"+id);
+function curBooking(){ const c = cur(); return bookings.find(x=>x.id===c.id); }
+
+async function confirmBook(setId){
+  const s = setById(setId), b = ui.booking;
+  if(!s || !b.date || ui.busy) return;
+  ui.busy = true; render();
+  try{
+    const holder = me.id || ("tab-"+Math.random().toString(36).slice(2));
+    let lk = {acquired:true};
+    try{ lk = await db.doc("locks/"+s.id).acquire({holder, ttlMs:8000}); }catch(e){ /* lease is best-effort */ }
+    if(!lk.acquired){ toast("다른 사람이 같은 세트를 예약하는 중이에요. 잠시 후 다시 눌러 주세요."); return; }
+    const end = addDays(b.date, b.nights);
+    let conflict = false;
+    try{
+      const snap = await db.collection("bookings").where("setId","==",s.id).get();
+      conflict = snap.docs.some(d=>{ const x = d.data(); return ACTIVE(x) && b.date < addDays(x.start, x.nights||1) && x.start < end; });
+    }catch(e){ conflict = false; }
+    for(let i=0;i<b.nights;i++) if((s.blocked||[]).includes(addDays(b.date,i))) conflict = true;
+    if(conflict){ toast("그 사이에 다른 예약이 들어왔어요. 다른 날을 골라 주세요."); b.date = null; return; }
+    const coaching = !!(s.coaching && b.coaching);
+    const ref = db.collection("bookings").doc();
+    const data = {setId:s.id, renterId:me.id, start:b.date, nights:b.nights, coaching,
+      total:(s.price||0)*b.nights + (coaching?COACH_FEE:0), status:"reserved", createdAt:new Date().toISOString(),
+      checkin:[null,null,null,null], checkout:[null,null,null,null]};
+    const ok = await write(()=>ref.set(data));
+    if(ok){ ui.tab = "trips"; ui.stack = [{view:"trips"},{view:"done", bid:ref.id}]; ui.busy = false; render(true); return; }
+  } finally { ui.busy = false; render(); }
+}
+
+async function setPhoto(stage, i, value){
+  const r = curBooking(); if(!r) return false;
+  const field = stage==="in" ? "checkin" : "checkout";
+  const arr = (r[field]||[null,null,null,null]).slice(); while(arr.length<4) arr.push(null);
+  arr[i] = value;
+  return write(()=>bRef(r.id).update({[field]:arr}));
+}
+
+async function submitForm(){
+  const f = ui.form, c = cur();
+  const price = parseInt(String(f.price).replace(/[^0-9]/g,""),10);
+  const items = f.items.map(i=>({n:i.n.trim(), c:i.c.trim()})).filter(i=>i.n);
+  if(!String(f.owner||"").trim()) ui.formErr = "보유자 표시 이름을 적어 주세요.";
+  else if(!f.name.trim()) ui.formErr = "세트 이름을 적어 주세요.";
+  else if(!(price>=1000 && price<=300000)) ui.formErr = "1박 대여료는 1,000원에서 300,000원 사이로 적어 주세요.";
+  else if(items.length<2) ui.formErr = "구성 장비를 2개 이상 적어 주세요.";
+  else ui.formErr = "";
+  if(ui.formErr){ render(); return; }
+  const data = {name:f.name.trim(), cat:f.cat, price, dist:+f.dist, place:f.place.trim(), coaching:!!f.coaching, desc:f.desc.trim(),
+    items, slots:items.slice(0,4).map(i=>i.n), ownerId:me.id, ownerLabel:String(f.owner).trim()};
+  me.name = data.ownerLabel; try{ localStorage.setItem(NAME_KEY, me.name); }catch(e){}
+  ui.busy = true; render();
+  let ok, newId = c.id;
+  if(c.id){ ok = await write(()=>db.doc("sets/"+c.id).update(data)); }
+  else { const ref = db.collection("sets").doc(); newId = ref.id; ok = await write(()=>ref.set(Object.assign(data,{blocked:[], createdAt:new Date().toISOString()}))); }
+  ui.busy = false;
+  if(ok){ ui.form = null; ui.tab = "mine"; ui.stack = [{view:"mine"},{view:"owner", id:newId}]; render(true); toast(c.id?"세트 정보를 고쳤어요.":"장비를 등록했어요. 이제 이웃이 예약할 수 있어요."); }
+  else render();
+}
+
+document.addEventListener("click", async e=>{
+  const el = e.target.closest("[data-act]");
+  if(!el){ if(e.target.id==="lightbox") $("#lightbox").hidden = true; return; }
+  const a = el.dataset.act, c = cur();
+  if(a!=="cancel" && a!=="del-set" && a!=="reset" && ui.armed){ if(ui.armed==="reset") document.querySelectorAll("[data-act=reset]").forEach(b=>{ b.textContent = "시연 데이터 초기화"; b.classList.remove("danger"); }); ui.armed = null; }
+  switch(a){
+    case "tab": tab(el.dataset.v); break;
+    case "back": back(); break;
+    case "cat": ui.cat = el.dataset.v; render(); break;
+    case "sort": ui.sort = el.dataset.v; render(); break;
+    case "open-set": go("detail",{id:el.dataset.id}); break;
+    case "open-owner": ui.tab = "mine"; go("owner",{id:el.dataset.id}); break;
+    case "book": {
+      const s = setById(el.dataset.id);
+      ui.booking = {date: upcomingDates().find(d=>!isBlocked(s,d)) || null, nights:1, coaching:false};
+      go("book",{id:s.id}); break;
+    }
+    case "date": ui.booking.date = el.dataset.v; render(); break;
+    case "nights": ui.booking.nights = +el.dataset.v; render(); break;
+    case "coach": ui.booking.coaching = el.dataset.v==="1"; render(); break;
+    case "confirm-book": confirmBook(el.dataset.id); break;
+    case "open-trip": if(c.view==="done"){ ui.stack = [{view:"trips"}]; ui.tab = "trips"; } go("trip",{id:el.dataset.id}); break;
+    case "open-history": go("historyDetail",{id:el.dataset.id}); break;
+    case "sample": {
+      const r = curBooking(); if(!r) break;
+      const st = el.dataset.stage, field = st==="in"?"checkin":"checkout";
+      const arr = (r[field]||[]).slice(); while(arr.length<4) arr.push(null);
+      for(let i=0;i<4;i++) if(!arr[i]) arr[i] = `sample:${r.setId}:${st}:${i}`;
+      await write(()=>bRef(r.id).update({[field]:arr})); break;
+    }
+    case "clear": {
+      const r = curBooking(); if(!r) break;
+      const arr = (el.dataset.stage==="in"?r.checkin:r.checkout)||[], old = arr[+el.dataset.i];
+      if(await setPhoto(el.dataset.stage, +el.dataset.i, null) && assets && old && !String(old).startsWith("sample:")) assets.delete(old).catch(()=>{});
+      break;
+    }
+    case "finish-in": {
+      const r = curBooking(); if(!r) break;
+      if(await write(()=>bRef(r.id).update({status:"inUse", checkinAt:new Date().toISOString()}))) { $("#view").scrollTop = 0; toast("인수 사진 4장을 저장했어요. 즐거운 캠핑 되세요!"); }
+      break;
+    }
+    case "finish-out": {
+      const r = curBooking(); if(!r) break;
+      if(await write(()=>bRef(r.id).update({status:"returned", checkoutAt:new Date().toISOString(), note:"반납 확인 완료 · 이상 없음"}))) { $("#view").scrollTop = 0; toast("반납을 기록했어요. 장비 이력서에 추가됐어요."); }
+      break;
+    }
+    case "cancel": {
+      if(ui.armed!=="cancel"){ ui.armed = "cancel"; render(); break; }
+      ui.armed = null;
+      const r = curBooking(); if(!r) break;
+      const photos = [...(r.checkin||[]), ...(r.checkout||[])].filter(p=>p && !String(p).startsWith("sample:"));
+      if(await write(()=>bRef(r.id).delete())){
+        if(assets) photos.forEach(p=>assets.delete(p).catch(()=>{}));
+        ui.stack = [{view:"trips"}]; ui.tab = "trips"; render(true); toast("예약을 취소했어요.");
+      }
+      break;
+    }
+    case "toggle-off": {
+      const s = setById(c.id); if(!s) break;
+      const d = el.dataset.v, cur2 = new Set(s.blocked||[]);
+      cur2.has(d) ? cur2.delete(d) : cur2.add(d);
+      const today = ymd(new Date());
+      await write(()=>db.doc("sets/"+s.id).update({blocked:[...cur2].filter(x=>x>=today).sort()}));
+      break;
+    }
+    case "register": ui.form = blankForm(); ui.formErr = ""; go("register",{}); break;
+    case "edit-set": {
+      const s = setById(el.dataset.id); if(!s) break;
+      const items = (s.items||[]).map(i=>({n:i.n||"", c:i.c||""})); while(items.length<4) items.push({n:"",c:"상태 좋음"});
+      ui.form = {owner:s.ownerLabel||me.name||"", name:s.name||"", cat:s.cat||"camp", price:String(s.price||""), dist:String(s.dist||800), place:s.place||"", coaching:!!s.coaching, desc:s.desc||"", items:items.slice(0,4)};
+      ui.formErr = ""; go("register",{id:s.id}); break;
+    }
+    case "del-set": {
+      if(ui.armed!=="del-set"){ ui.armed = "del-set"; render(); break; }
+      ui.armed = null;
+      if(await write(()=>db.doc("sets/"+el.dataset.id).delete())){ ui.stack = [{view:"mine"}]; render(true); toast("세트를 삭제했어요."); }
+      break;
+    }
+    case "zoom": {
+      const r = bookings.find(x=>x.id===el.dataset.bid); if(!r) break;
+      const s = setById(r.setId), i = +el.dataset.i, st = el.dataset.stage;
+      const p = ((st==="in"?r.checkin:r.checkout)||[])[i]; if(!p) break;
+      zoom(resolvePhoto(p), `${fmt(r.start)} · ${slotsOf(s)[i]} · ${st==="in"?"인수":"반납"} 사진`); break;
+    }
+    case "close-lb": $("#lightbox").hidden = true; break;
+    case "reset": {
+      if(ui.armed!=="reset"){ ui.armed = "reset"; document.querySelectorAll("[data-act=reset]").forEach(b=>{ b.textContent = "한 번 더 누르면 처음 상태로 돌아가요"; b.classList.add("danger"); }); break; }
+      ui.armed = null; db.reset(); idb.clear().catch(()=>{});
+      Object.keys(photoUrl).forEach(k=>delete photoUrl[k]); Object.keys(photoLoading).forEach(k=>delete photoLoading[k]);
+      ui.tab = "explore"; ui.stack = [{view:"explore"}]; ui.booking = null; ui.form = null;
+      document.querySelectorAll("[data-act=reset]").forEach(b=>{ b.textContent = "시연 데이터 초기화"; b.classList.remove("danger"); });
+      render(true); toast("처음 상태로 되돌렸어요."); break;
+    }
+  }
+});
+document.addEventListener("keydown", e=>{ if(e.key==="Escape") $("#lightbox").hidden = true; });
+
+document.addEventListener("input", e=>{
+  const k = e.target.dataset && e.target.dataset.f; if(!k || !ui.form) return;
+  const v = e.target.type==="checkbox" ? e.target.checked : e.target.value;
+  const m = k.match(/^i(\d)([nc])$/);
+  if(m) ui.form.items[+m[1]][m[2]] = v; else ui.form[k] = v;
+});
+document.addEventListener("submit", e=>{ if(e.target.id==="regform"){ e.preventDefault(); if(!ui.busy) submitForm(); } });
+
+document.addEventListener("change", async e=>{
+  const inp = e.target;
+  if(inp.dataset && inp.dataset.f){ // selects & checkbox fire change, mirror into form
+    if(ui.form){ const k = inp.dataset.f; ui.form[k] = inp.type==="checkbox" ? inp.checked : inp.value; }
+    return;
+  }
+  if(!(inp instanceof HTMLInputElement) || inp.type!=="file" || !inp.files || !inp.files[0] || !assets) return;
+  const stage = inp.dataset.stage, i = +inp.dataset.i, key = stage+"-"+i, file = inp.files[0];
+  ui.uploading[key] = true; render();
+  try{
+    const blob = await toJpeg(file);
+    const res = await assets.upload(blob, {type:"image/jpeg"});
+    photoUrl[res.id] = res.url;
+    await setPhoto(stage, i, res.id);
+  }catch(err){
+    const c = err && err.code;
+    toast(c==="too_large" ? "사진이 너무 커요. 더 작은 사진으로 골라 주세요."
+      : c==="not_granted" ? "사진을 올릴 권한이 없어요. 편집 권한이 필요해요."
+      : c==="quota_exceeded" ? "사진 저장 공간이 가득 찼어요."
+      : (err && (err.message==="decode"||err.message==="encode")) ? "이 사진 형식은 열 수 없어요. JPG나 PNG 사진으로 다시 골라 주세요."
+      : "사진을 올리지 못했어요. 잠시 후 다시 시도해 주세요.");
+  }finally{ delete ui.uploading[key]; render(); }
+});
+
+/* ---------- this-browser storage (no login, no server) ---------- */
+const SEED = {"bookings/sample-1": {"setId": "s1", "renterId": null, "renterLabel": "이*진", "start": "2026-09-05", "nights": 1, "coaching": true, "total": 40000, "status": "returned", "sample": true, "createdAt": "2026-09-05T09:00:00+09:00", "checkinAt": "2026-09-05T18:10:00+09:00", "checkoutAt": "2026-09-05T18:10:00+09:00", "checkin": ["sample:s1:in:0", "sample:s1:in:1", "sample:s1:in:2", "sample:s1:in:3"], "checkout": ["sample:s1:out:0", "sample:s1:out:1", "sample:s1:out:2", "sample:s1:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "bookings/sample-2": {"setId": "s1", "renterId": null, "renterLabel": "박*우", "start": "2026-09-19", "nights": 2, "coaching": false, "total": 60000, "status": "returned", "sample": true, "createdAt": "2026-09-19T09:00:00+09:00", "checkinAt": "2026-09-19T18:10:00+09:00", "checkoutAt": "2026-09-19T18:10:00+09:00", "checkin": ["sample:s1:in:0", "sample:s1:in:1", "sample:s1:in:2", "sample:s1:in:3"], "checkout": ["sample:s1:out:0", "sample:s1:out:1", "sample:s1:out:2", "sample:s1:out:3"], "note": "의자 팔걸이 사용감, 인수 사진과 동일"}, "bookings/sample-3": {"setId": "s1", "renterId": null, "renterLabel": "최*린", "start": "2026-10-03", "nights": 1, "coaching": true, "total": 40000, "status": "returned", "sample": true, "createdAt": "2026-10-03T09:00:00+09:00", "checkinAt": "2026-10-03T18:10:00+09:00", "checkoutAt": "2026-10-03T18:10:00+09:00", "checkin": ["sample:s1:in:0", "sample:s1:in:1", "sample:s1:in:2", "sample:s1:in:3"], "checkout": ["sample:s1:out:0", "sample:s1:out:1", "sample:s1:out:2", "sample:s1:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "bookings/sample-4": {"setId": "s2", "renterId": null, "renterLabel": "오*아", "start": "2026-09-12", "nights": 1, "coaching": true, "total": 48000, "status": "returned", "sample": true, "createdAt": "2026-09-12T09:00:00+09:00", "checkinAt": "2026-09-12T18:10:00+09:00", "checkoutAt": "2026-09-12T18:10:00+09:00", "checkin": ["sample:s2:in:0", "sample:s2:in:1", "sample:s2:in:2", "sample:s2:in:3"], "checkout": ["sample:s2:out:0", "sample:s2:out:1", "sample:s2:out:2", "sample:s2:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "bookings/sample-5": {"setId": "s2", "renterId": null, "renterLabel": "서*민", "start": "2026-10-03", "nights": 2, "coaching": true, "total": 86000, "status": "returned", "sample": true, "createdAt": "2026-10-03T09:00:00+09:00", "checkinAt": "2026-10-03T18:10:00+09:00", "checkoutAt": "2026-10-03T18:10:00+09:00", "checkin": ["sample:s2:in:0", "sample:s2:in:1", "sample:s2:in:2", "sample:s2:in:3"], "checkout": ["sample:s2:out:0", "sample:s2:out:1", "sample:s2:out:2", "sample:s2:out:3"], "note": "텐트 결로 건조 후 반납"}, "bookings/sample-6": {"setId": "s3", "renterId": null, "renterLabel": "강*수", "start": "2026-09-12", "nights": 1, "coaching": false, "total": 9000, "status": "returned", "sample": true, "createdAt": "2026-09-12T09:00:00+09:00", "checkinAt": "2026-09-12T18:10:00+09:00", "checkoutAt": "2026-09-12T18:10:00+09:00", "checkin": ["sample:s3:in:0", "sample:s3:in:1", "sample:s3:in:2", "sample:s3:in:3"], "checkout": ["sample:s3:out:0", "sample:s3:out:1", "sample:s3:out:2", "sample:s3:out:3"], "note": "가스 랜턴 유리 스크래치 기존 기록과 동일"}, "bookings/sample-7": {"setId": "s4", "renterId": null, "renterLabel": "문*호", "start": "2026-09-26", "nights": 1, "coaching": true, "total": 35000, "status": "returned", "sample": true, "createdAt": "2026-09-26T09:00:00+09:00", "checkinAt": "2026-09-26T18:10:00+09:00", "checkoutAt": "2026-09-26T18:10:00+09:00", "checkin": ["sample:s4:in:0", "sample:s4:in:1", "sample:s4:in:2", "sample:s4:in:3"], "checkout": ["sample:s4:out:0", "sample:s4:out:1", "sample:s4:out:2", "sample:s4:out:3"], "note": "침낭 세탁 후 반납"}, "bookings/sample-8": {"setId": "s6", "renterId": null, "renterLabel": "배*연", "start": "2026-09-19", "nights": 2, "coaching": false, "total": 90000, "status": "returned", "sample": true, "createdAt": "2026-09-19T09:00:00+09:00", "checkinAt": "2026-09-19T18:10:00+09:00", "checkoutAt": "2026-09-19T18:10:00+09:00", "checkin": ["sample:s6:in:0", "sample:s6:in:1", "sample:s6:in:2", "sample:s6:in:3"], "checkout": ["sample:s6:out:0", "sample:s6:out:1", "sample:s6:out:2", "sample:s6:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "sets/s1": {"name": "첫 캠핑 1박 세트", "cat": "camp", "art": "tent", "warm": false, "dist": 800, "price": 30000, "ownerLabel": "남오름", "ownerId": null, "coaching": true, "items": [{"n": "4인용 돔 텐트", "c": "상태 좋음"}, {"n": "헥사 타프", "c": "상태 좋음"}, {"n": "캠핑 의자 2개", "c": "사용감 조금"}, {"n": "LED 랜턴", "c": "상태 좋음"}], "slots": ["텐트", "타프", "의자", "랜턴"], "desc": "처음 캠핑에 필요한 기본 장비를 한 번에 묶었어요. 텐트 치는 법이 걱정되면 코칭을 추가하세요.", "place": "충북대 중문 앞", "blocked": ["2026-11-29"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s2": {"name": "감성 캠핑 세트", "cat": "camp", "art": "tent", "warm": true, "dist": 1200, "price": 38000, "ownerLabel": "정하늘", "ownerId": null, "coaching": true, "items": [{"n": "면 소재 벨 텐트", "c": "상태 좋음"}, {"n": "우드 롤테이블", "c": "상태 좋음"}, {"n": "릴렉스 체어 2개", "c": "상태 좋음"}, {"n": "갈런드 조명", "c": "새것에 가까움"}], "slots": ["텐트", "테이블", "의자", "조명"], "desc": "사진이 예쁘게 나오는 면 텐트 구성이에요. 설치가 조금 까다로워 코칭을 권해요.", "place": "사창사거리 버스정류장 앞", "blocked": ["2026-12-05"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s3": {"name": "입문 랜턴 세트", "cat": "light", "art": "lantern", "warm": true, "dist": 400, "price": 9000, "ownerLabel": "최민재", "ownerId": null, "coaching": false, "items": [{"n": "LED 랜턴 2개", "c": "상태 좋음"}, {"n": "가스 랜턴", "c": "유리 미세 스크래치"}, {"n": "랜턴 걸이 폴", "c": "상태 좋음"}, {"n": "예비 건전지", "c": "포함"}], "slots": ["LED 랜턴", "가스 랜턴", "걸이 폴", "구성품"], "desc": "이미 텐트가 있다면 조명만 빌려 보세요. 가장 가까운 세트예요.", "place": "사창동 행정복지센터 앞", "blocked": [], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s4": {"name": "솔로 백패킹 세트", "cat": "camp", "art": "pack", "warm": false, "dist": 1600, "price": 25000, "ownerLabel": "윤서진", "ownerId": null, "coaching": true, "items": [{"n": "1인용 경량 텐트", "c": "상태 좋음"}, {"n": "자충 매트", "c": "사용감 조금"}, {"n": "3계절 침낭", "c": "세탁 완료"}, {"n": "경량 의자", "c": "상태 좋음"}], "slots": ["텐트", "매트", "침낭", "의자"], "desc": "혼자 떠나는 첫 백패킹용이에요. 전체 무게 7kg 안팎.", "place": "사창동 어린이공원 입구", "blocked": ["2026-11-28", "2026-11-29"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s5": {"name": "화로·바비큐 세트", "cat": "fire", "art": "fire", "warm": true, "dist": 1900, "price": 15000, "ownerLabel": "한도윤", "ownerId": null, "coaching": false, "items": [{"n": "접이식 화로대", "c": "그을음 있음"}, {"n": "바비큐 그릴망", "c": "세척 완료"}, {"n": "집게·토치", "c": "상태 좋음"}, {"n": "내열 장갑", "c": "상태 좋음"}], "slots": ["화로대", "그릴망", "집게·토치", "장갑"], "desc": "캠핑장 화로 사용 규칙을 꼭 확인해 주세요.", "place": "사창동 공영주차장 앞", "blocked": [], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s6": {"name": "가족 캠핑 세트", "cat": "camp", "art": "tent", "warm": false, "dist": 2000, "price": 45000, "ownerLabel": "남오름", "ownerId": null, "coaching": true, "items": [{"n": "6인용 터널 텐트", "c": "상태 좋음"}, {"n": "대형 타프", "c": "상태 좋음"}, {"n": "캠핑 테이블", "c": "상태 좋음"}, {"n": "캠핑 의자 4개", "c": "사용감 조금"}], "slots": ["텐트", "타프", "테이블", "의자"], "desc": "아이와 함께하는 가족 캠핑용 넉넉한 구성이에요.", "place": "충북대 중문 앞", "blocked": ["2026-12-12"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}};
+const LS_KEY = "jumal-sachang-v1", NAME_KEY = "jumal-sachang-name";
+function seedDocs(){ return JSON.parse(JSON.stringify(SEED)); }
+function makeLocalDb(){
+  let docs = null;
+  try{ const raw = JSON.parse(localStorage.getItem(LS_KEY)); if(raw && raw.docs) docs = raw.docs; }catch(e){}
+  if(!docs) docs = seedDocs();
+  const subs = [];
+  const fire = () => subs.forEach(f=>f());
+  const commit = (mutate) => {
+    const prev = JSON.stringify(docs);
+    mutate();
+    try{ localStorage.setItem(LS_KEY, JSON.stringify({docs})); }
+    catch(e){ if(e && e.name==="QuotaExceededError"){ docs = JSON.parse(prev); throw {code:"quota_exceeded"}; } }
+    fire();
+  };
+  const parent = k => k.slice(0, k.lastIndexOf("/")), leaf = k => k.slice(k.lastIndexOf("/")+1);
+  const snapOf = (col, f) => {
+    const list = Object.keys(docs).filter(k=>parent(k)===col).map(k=>{ const v = docs[k]; return {id:leaf(k), exists:true, data:()=>v, metadata:{fromCache:false}}; })
+      .filter(d=>f.every(([a,v])=>d.data()[a]===v));
+    return {docs:list, size:list.length, empty:!list.length, metadata:{fromCache:false, hasPendingWrites:false}, docChanges:()=>[]};
+  };
+  const docRef = path => ({ id:leaf(path), path,
+    get: async()=>({exists: path in docs, data:()=>docs[path]}),
+    set: async d=>commit(()=>{ docs[path] = JSON.parse(JSON.stringify(d)); }),
+    update: async d=>{ if(!(path in docs)) throw {code:"unavailable"}; commit(()=>{ Object.assign(docs[path], JSON.parse(JSON.stringify(d))); }); },
+    delete: async()=>commit(()=>{ delete docs[path]; }),
+    acquire: async()=>({acquired:true}) });
+  const q = (col, f=[]) => ({
+    where:(a,op,v)=>q(col,[...f,[a,v]]),
+    get: async()=>snapOf(col,f),
+    onSnapshot:(next)=>{ const fn = ()=>next(snapOf(col,f)); subs.push(fn); setTimeout(fn,0); return ()=>{ const i = subs.indexOf(fn); if(i>=0) subs.splice(i,1); }; },
+    doc: id=>docRef(col+"/"+(id || ("x"+Date.now().toString(36)+Math.random().toString(36).slice(2,6)))) });
+  window.addEventListener("storage", e=>{ if(e.key===LS_KEY){ try{ const raw = JSON.parse(e.newValue); docs = raw && raw.docs ? raw.docs : seedDocs(); }catch(err){} fire(); } });
+  return { doc:docRef, collection:c=>q(c), reset(){ commit(()=>{ docs = seedDocs(); }); } };
+}
+const idb = (()=>{
+  let p;
+  const open = () => p || (p = new Promise((res,rej)=>{ const r = indexedDB.open("jumal-sachang-photos",1); r.onupgradeneeded = ()=>r.result.createObjectStore("p"); r.onsuccess = ()=>res(r.result); r.onerror = ()=>rej(r.error); }));
+  const tx = (mode, fn) => open().then(d=>new Promise((res,rej)=>{ const t = d.transaction("p",mode); const req = fn(t.objectStore("p")); t.oncomplete = ()=>res(req && req.result); t.onerror = ()=>rej(t.error); t.onabort = ()=>rej(t.error); }));
+  return { put:(k,v)=>tx("readwrite",s=>s.put(v,k)), get:k=>tx("readonly",s=>s.get(k)), del:k=>tx("readwrite",s=>s.delete(k)), clear:()=>tx("readwrite",s=>s.clear()) };
+})();
+const blobToDataUrl = b => new Promise((res,rej)=>{ const r = new FileReader(); r.onload = ()=>res(r.result); r.onerror = rej; r.readAsDataURL(b); });
+const localAssets = {
+  async upload(blob){
+    const id = "p"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+    try{ await idb.put(id, blob); return {id, url:URL.createObjectURL(blob)}; }
+    catch(e){ const url = await blobToDataUrl(blob); return {id:url, url}; } // fallback: keep the photo inline
+  },
+  async delete(id){ if(!String(id).startsWith("data:")) await idb.del(id); return {deleted:true}; }
+};
+const photoLoading = {};
+function loadPhoto(id){
+  if(photoLoading[id]) return; photoLoading[id] = true;
+  idb.get(id).then(b=>{ if(b){ photoUrl[id] = URL.createObjectURL(b); render(); } }).catch(()=>{});
+}
+
+/* ---------- boot ---------- */
+render(true);
+(async function boot(){
+  db = makeLocalDb(); assets = localAssets; user = null; canWrite = true;
+  let nm = ""; try{ nm = localStorage.getItem(NAME_KEY) || ""; }catch(e){}
+  me = {id:"me", name:nm, avatarUrl:""};
+  const slowT = setTimeout(()=>{ if(!(gotSets && gotBookings)){ phase = "slow"; render(); } }, 10000);
+  const onErr = e=>{ clearTimeout(slowT); if(!(gotSets && gotBookings)){ phase = "nodb"; render(); } else toast("실시간 연결이 끊겼어요. 새로고침하면 다시 연결돼요."); };
+  const settle = ()=>{ if(gotSets && gotBookings){ clearTimeout(slowT); phase = "ready"; } if(cur().view!=="register") render(); };
+  db.collection("sets").onSnapshot(snap=>{
+    sets = snap.docs.map(x=>Object.assign({id:x.id}, x.data()));
+    if(!snap.metadata.fromCache || sets.length) gotSets = true; settle();
+  }, onErr);
+  db.collection("bookings").onSnapshot(snap=>{
+    bookings = snap.docs.map(x=>Object.assign({id:x.id}, x.data()));
+    if(!snap.metadata.fromCache || bookings.length) gotBookings = true; settle();
+  }, onErr);
+})();
+})();
+</script>
+</body>
+</html>
