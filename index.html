@@ -40,12 +40,10 @@ p{margin:0}
 ul,ol{margin:0;padding:0;list-style:none}
 .num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
 
-.stage{height:100%;display:flex;justify-content:center;align-items:stretch;gap:40px;padding-block:24px;padding-inline:16px}
-.phone{position:relative;width:100%;max-width:430px;height:100%;max-height:900px;align-self:center;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 18px 50px -24px rgba(20,40,30,.35)}
-@media (max-width:600px){
-  .stage{padding:0}
-  .phone{max-width:none;max-height:none;border:0;border-radius:0;box-shadow:none}
-}
+.stage{height:100%;display:flex;justify-content:center;background:var(--bg)}
+.phone{position:relative;width:100%;max-width:480px;height:100%;display:flex;flex-direction:column;background:var(--surface);border-inline:1px solid var(--line);overflow:hidden}
+@media (max-width:480px){ .phone{border:0} }
+.h-title{font-size:20px;font-weight:700}
 
 #top{display:flex;align-items:center;gap:10px;min-height:58px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--surface)}
 .brand{font-family:var(--f-display);font-size:24px;letter-spacing:.5px;color:var(--pine);line-height:1}
@@ -228,13 +226,6 @@ textarea.input{resize:vertical;min-height:70px}
 </head>
 <body>
 <div class="stage">
-  <aside class="guide" aria-label="시연 시나리오">
-    <div class="brand">주말창고</div>
-    <p class="scn">금요일 저녁, 첫 캠핑을 준비하는 태현이 집 근처에서 장비를 빌린다.</p>
-    <ol class="gsteps" id="gsteps"></ol>
-    <p class="fine">보유자는 '내 장비' 탭에서 장비를 등록하고, 대여 불가일을 막고, 들어온 예약을 확인해요. 예약과 사진은 이 브라우저에만 저장돼요.</p>
-    <button class="btn sm ghost" data-act="reset" style="align-self:flex-start">시연 데이터 초기화</button>
-  </aside>
   <div class="phone">
     <header id="top"></header>
     <main id="view"></main>
@@ -423,10 +414,6 @@ function vExplore(){
   let list = sets.filter(s=>ui.cat==="all" || s.cat===ui.cat);
   list = list.slice().sort((a,b)=> ui.sort==="dist" ? (a.dist||0)-(b.dist||0) : (a.price||0)-(b.price||0));
   return `<div class="pad">
-    <section class="stack">
-      <p class="eyebrow">${me.name?esc(me.name)+"님, ":""}이번 주말 처음 해 보는 취미</p>
-      <h1 class="h-display">가까운 취미 장비 찾기</h1>
-    </section>
     <div class="chips" role="group" aria-label="분류">
       ${CATS.map(([k,l])=>`<button class="chip" data-act="cat" data-v="${k}" aria-pressed="${ui.cat===k}">${l}</button>`).join("")}
     </div>
@@ -539,7 +526,7 @@ function vBook({id}){
         <div><span>사용법 카드</span><span class="num">무료</span></div>
         <div class="total"><span>합계</span><span class="num">${won(total)}</span></div>
       </div>
-      <p class="note">결제는 장비를 받을 때 보유자와 직접 해요. 파손 보험은 보험사 제휴 후 추가할 예정이고, 지금은 인수·반납 사진으로 장비 상태를 기록해요.</p>
+      <p class="note">결제는 장비를 받을 때 보유자에게 직접 해요.</p>
     </section>
   </div>
   <div class="ctabar">
@@ -553,7 +540,7 @@ function vDone({bid}){
   return `<div class="pad done">
     <div class="badge-ok">${I.check}</div>
     <h1 class="h-display">예약이 확정됐어요</h1>
-    <p class="muted">예약 내용이 이 기기에 저장됐어요. 수령 장소에서 ${esc(ownerName(s))}님을 만나세요.</p>
+    <p class="muted">수령 장소에서 ${esc(ownerName(s))}님을 만나세요.</p>
   </div>
   <div class="pad" style="padding-top:0">
     <ul class="list">
@@ -563,7 +550,7 @@ function vDone({bid}){
       <li><span>코칭</span><span>${r.coaching?"15분 세팅 코칭":"없음"}</span></li>
       <li><span>합계</span><span class="num">${won(r.total)}</span></li>
     </ul>
-    <p class="note">장비를 받을 때 인수 사진 4장을 찍어 상태를 기록해요. 반납할 때도 같은 구도로 4장을 찍으면 장비 이력서에 저장돼요.</p>
+    <p class="note">장비를 받을 때 인수 사진 4장, 반납할 때 반납 사진 4장을 등록해 주세요.</p>
     <div class="stack">
       <button class="btn" data-act="open-trip" data-id="${esc(r.id)}">인수 사진 등록하기</button>
       <button class="btn ghost" data-act="tab" data-v="explore">탐색으로 돌아가기</button>
@@ -574,7 +561,7 @@ function vDone({bid}){
 function vTrips(){
   const list = bookings.filter(b=>me.id && b.renterId===me.id).sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""));
   return `<div class="pad">
-    <section class="stack"><p class="eyebrow">내 예약</p><h1 class="h-display">빌린 장비</h1></section>
+    <h1 class="h-title">내 예약</h1>
     ${list.length?`<ul class="cards">${list.map(r=>{
       const s = setById(r.setId) || {name:"삭제된 세트"};
       const nIn = (r.checkin||[]).filter(Boolean).length, nOut = (r.checkout||[]).filter(Boolean).length;
@@ -614,9 +601,8 @@ function vTrip({id}){
   if(r.status==="reserved"){
     body = `<section class="sec">
       <h2 class="h-sec">인수 전 사진 <small>${nIn}/4</small></h2>
-      <p class="fine">장비를 받는 자리에서 칸마다 한 장씩 찍어 주세요. 사진과 시각이 이 장비의 기록으로 저장돼요.</p>
+      <p class="fine">장비를 받을 때 칸마다 한 장씩 찍어 주세요.</p>
       ${slotGrid(r,"in",ed)}
-      ${ed?`<button class="btn sm ghost" data-act="sample" data-stage="in">빈 칸을 샘플 사진으로 채우기 (시연용)</button>`:""}
     </section>
     ${ed?`<button class="btn sm ${ui.armed==="cancel"?"danger":"ghost"}" data-act="cancel">${ui.armed==="cancel"?"한 번 더 누르면 예약이 취소돼요":"예약 취소"}</button>`:""}`;
     cta = ed ? `<button class="btn" data-act="finish-in" ${nIn===4?"":"disabled"}>${nIn===4?"인수 완료":`인수 사진 ${4-nIn}장 남음`}</button>` : "";
@@ -627,9 +613,8 @@ function vTrip({id}){
     </section>
     <section class="sec">
       <h2 class="h-sec">반납 후 사진 <small>${nOut}/4</small></h2>
-      <p class="fine">인수 사진과 같은 구도로 찍으면 상태를 비교하기 쉬워요.</p>
+      <p class="fine">인수 사진과 같은 구도로 찍어 주세요.</p>
       ${slotGrid(r,"out",ed)}
-      ${ed?`<button class="btn sm ghost" data-act="sample" data-stage="out">빈 칸을 샘플 사진으로 채우기 (시연용)</button>`:""}
     </section>`;
     cta = ed ? `<button class="btn" data-act="finish-out" ${nOut===4?"":"disabled"}>${nOut===4?"반납 완료":`반납 사진 ${4-nOut}장 남음`}</button>` : "";
   } else {
@@ -642,7 +627,7 @@ function vTrip({id}){
           <button class="thumb" data-act="zoom" data-bid="${esc(r.id)}" data-stage="in" data-i="${i}"><img src="${esc(resolvePhoto((r.checkin||[])[i]))}" alt="${esc(l)} 인수 사진"></button>
           <button class="thumb" data-act="zoom" data-bid="${esc(r.id)}" data-stage="out" data-i="${i}"><img src="${esc(resolvePhoto((r.checkout||[])[i]))}" alt="${esc(l)} 반납 사진"></button>`).join("")}
       </div>
-      <p class="note">이 기록은 장비 이력서에 쌓여서 다음 이용자와 보유자 모두 확인할 수 있어요.</p>
+      
     </section>`;
     cta = setById(r.setId) ? `<button class="btn" data-act="open-history" data-id="${esc(r.setId)}">장비 이력서 보기</button>` : "";
   }
@@ -662,8 +647,7 @@ function vTrip({id}){
 function vMine(){
   const mine = sets.filter(isMine);
   return `<div class="pad">
-    <section class="stack"><p class="eyebrow">보유자</p><h1 class="h-display">내 장비</h1>
-    <p class="muted">놀고 있는 장비를 등록하면 이웃이 예약할 수 있어요. 쓸 날은 미리 막아 두세요.</p></section>
+    <h1 class="h-title">내 장비</h1>
     <button class="btn" data-act="register" ${readonly()||!me.id?"disabled":""}>${readonly()?"보기 전용 권한이라 등록할 수 없어요":!me.id?"로그인 정보가 없어 등록할 수 없어요":"장비 세트 등록하기"}</button>
     ${mine.length?`<ul class="cards">${mine.map(s=>{
       const act = bookings.filter(b=>b.setId===s.id && ACTIVE(b)).sort((a,b)=>a.start.localeCompare(b.start));
@@ -674,9 +658,7 @@ function vMine(){
         <span class="items">${nx?`다음 예약 ${fmt(nx.start)} · ${esc(renterName(nx))}님`:"들어온 예약이 없어요"}</span>
         <span class="tags">${act.length?`<span class="tag amber">진행 중 ${act.length}건</span>`:""}${(s.blocked||[]).length?`<span class="tag">대여 불가 ${(s.blocked||[]).length}일</span>`:""}</span></div>
       </button></li>`;}).join("")}</ul>`
-    :`<div class="empty"><b>아직 등록한 장비가 없어요</b><p class="fine">텐트, 랜턴처럼 1년에 몇 번 안 쓰는 장비부터 올려 보세요.</p></div>`}
-    <div class="stack"><p class="fine">예약·사진·등록한 장비는 이 브라우저에만 저장돼요. 발표 전에 처음 상태로 돌리려면 아래 버튼을 두 번 누르세요.</p>
-    <button class="btn sm ghost" data-act="reset" style="align-self:flex-start">시연 데이터 초기화</button></div>
+    :`<div class="empty"><b>아직 등록한 장비가 없어요</b></div>`}
   </div>`;
 }
 
@@ -719,8 +701,8 @@ function blankForm(){ return {owner:me.name||"", name:"", cat:"camp", price:"", 
 function vRegister({id}){
   const f = ui.form;
   return `<form class="pad" id="regform" novalidate>
-    <section class="stack"><p class="eyebrow">${id?"세트 정보 수정":"새 장비 세트"}</p><h1 class="h-display">${id?"세트 수정하기":"장비 등록하기"}</h1></section>
-    <label class="field"><span>보유자 표시 이름</span><input class="input" id="rf-owner" data-f="owner" maxlength="12" value="${esc(f.owner||"")}" placeholder="예: 남오름"></label>
+    
+    <label class="field"><span>보유자 표시 이름</span><input class="input" id="rf-owner" data-f="owner" maxlength="12" value="${esc(f.owner||"")}" placeholder="예: 이준호"></label>
     <label class="field"><span>세트 이름</span><input class="input" id="rf-name" data-f="name" maxlength="30" value="${esc(f.name)}" placeholder="예: 첫 캠핑 1박 세트" required></label>
     <div class="grid2">
       <label class="field"><span>분류</span><select class="input" id="rf-cat" data-f="cat">${CATS.slice(1).map(([k,l])=>`<option value="${k}" ${f.cat===k?"selected":""}>${l}</option>`).join("")}</select></label>
@@ -746,8 +728,7 @@ function vRegister({id}){
 
 function vHistory(){
   return `<div class="pad">
-    <section class="stack"><p class="eyebrow">장비 이력서</p><h1 class="h-display">세트별 대여 기록</h1>
-    <p class="muted">대여할 때마다 인수·반납 사진이 장비별로 쌓여요. 빌리기 전에 관리 상태를 확인하세요.</p></section>
+    <h1 class="h-title">장비 이력</h1>
     ${sets.length?`<ul class="cards">${sets.map(s=>{ const h = history(s.id);
       return `<li><button class="card" data-act="open-history" data-id="${esc(s.id)}">${art(s)}
         <div class="body"><span class="name">${esc(s.name)}</span>
@@ -798,7 +779,6 @@ function render(scrollTop){
   main.scrollTop = scrollTop ? 0 : keep;
   const tabs = [["explore","탐색",I.search],["trips","내 예약",I.ticket],["mine","내 장비",I.box],["history","장비 이력",I.book]];
   $("#tabs").innerHTML = tabs.map(([k,l,ic])=>`<button data-act="tab" data-v="${k}" ${ui.tab===k?'aria-current="page"':""}>${ic}<span>${l}</span></button>`).join("");
-  renderGuide();
   if(ready) ensureProfiles();
 }
 
@@ -1015,7 +995,7 @@ document.addEventListener("change", async e=>{
 });
 
 /* ---------- this-browser storage (no login, no server) ---------- */
-const SEED = {"bookings/sample-1": {"setId": "s1", "renterId": null, "renterLabel": "이*진", "start": "2026-09-05", "nights": 1, "coaching": true, "total": 40000, "status": "returned", "sample": true, "createdAt": "2026-09-05T09:00:00+09:00", "checkinAt": "2026-09-05T18:10:00+09:00", "checkoutAt": "2026-09-05T18:10:00+09:00", "checkin": ["sample:s1:in:0", "sample:s1:in:1", "sample:s1:in:2", "sample:s1:in:3"], "checkout": ["sample:s1:out:0", "sample:s1:out:1", "sample:s1:out:2", "sample:s1:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "bookings/sample-2": {"setId": "s1", "renterId": null, "renterLabel": "박*우", "start": "2026-09-19", "nights": 2, "coaching": false, "total": 60000, "status": "returned", "sample": true, "createdAt": "2026-09-19T09:00:00+09:00", "checkinAt": "2026-09-19T18:10:00+09:00", "checkoutAt": "2026-09-19T18:10:00+09:00", "checkin": ["sample:s1:in:0", "sample:s1:in:1", "sample:s1:in:2", "sample:s1:in:3"], "checkout": ["sample:s1:out:0", "sample:s1:out:1", "sample:s1:out:2", "sample:s1:out:3"], "note": "의자 팔걸이 사용감, 인수 사진과 동일"}, "bookings/sample-3": {"setId": "s1", "renterId": null, "renterLabel": "최*린", "start": "2026-10-03", "nights": 1, "coaching": true, "total": 40000, "status": "returned", "sample": true, "createdAt": "2026-10-03T09:00:00+09:00", "checkinAt": "2026-10-03T18:10:00+09:00", "checkoutAt": "2026-10-03T18:10:00+09:00", "checkin": ["sample:s1:in:0", "sample:s1:in:1", "sample:s1:in:2", "sample:s1:in:3"], "checkout": ["sample:s1:out:0", "sample:s1:out:1", "sample:s1:out:2", "sample:s1:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "bookings/sample-4": {"setId": "s2", "renterId": null, "renterLabel": "오*아", "start": "2026-09-12", "nights": 1, "coaching": true, "total": 48000, "status": "returned", "sample": true, "createdAt": "2026-09-12T09:00:00+09:00", "checkinAt": "2026-09-12T18:10:00+09:00", "checkoutAt": "2026-09-12T18:10:00+09:00", "checkin": ["sample:s2:in:0", "sample:s2:in:1", "sample:s2:in:2", "sample:s2:in:3"], "checkout": ["sample:s2:out:0", "sample:s2:out:1", "sample:s2:out:2", "sample:s2:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "bookings/sample-5": {"setId": "s2", "renterId": null, "renterLabel": "서*민", "start": "2026-10-03", "nights": 2, "coaching": true, "total": 86000, "status": "returned", "sample": true, "createdAt": "2026-10-03T09:00:00+09:00", "checkinAt": "2026-10-03T18:10:00+09:00", "checkoutAt": "2026-10-03T18:10:00+09:00", "checkin": ["sample:s2:in:0", "sample:s2:in:1", "sample:s2:in:2", "sample:s2:in:3"], "checkout": ["sample:s2:out:0", "sample:s2:out:1", "sample:s2:out:2", "sample:s2:out:3"], "note": "텐트 결로 건조 후 반납"}, "bookings/sample-6": {"setId": "s3", "renterId": null, "renterLabel": "강*수", "start": "2026-09-12", "nights": 1, "coaching": false, "total": 9000, "status": "returned", "sample": true, "createdAt": "2026-09-12T09:00:00+09:00", "checkinAt": "2026-09-12T18:10:00+09:00", "checkoutAt": "2026-09-12T18:10:00+09:00", "checkin": ["sample:s3:in:0", "sample:s3:in:1", "sample:s3:in:2", "sample:s3:in:3"], "checkout": ["sample:s3:out:0", "sample:s3:out:1", "sample:s3:out:2", "sample:s3:out:3"], "note": "가스 랜턴 유리 스크래치 기존 기록과 동일"}, "bookings/sample-7": {"setId": "s4", "renterId": null, "renterLabel": "문*호", "start": "2026-09-26", "nights": 1, "coaching": true, "total": 35000, "status": "returned", "sample": true, "createdAt": "2026-09-26T09:00:00+09:00", "checkinAt": "2026-09-26T18:10:00+09:00", "checkoutAt": "2026-09-26T18:10:00+09:00", "checkin": ["sample:s4:in:0", "sample:s4:in:1", "sample:s4:in:2", "sample:s4:in:3"], "checkout": ["sample:s4:out:0", "sample:s4:out:1", "sample:s4:out:2", "sample:s4:out:3"], "note": "침낭 세탁 후 반납"}, "bookings/sample-8": {"setId": "s6", "renterId": null, "renterLabel": "배*연", "start": "2026-09-19", "nights": 2, "coaching": false, "total": 90000, "status": "returned", "sample": true, "createdAt": "2026-09-19T09:00:00+09:00", "checkinAt": "2026-09-19T18:10:00+09:00", "checkoutAt": "2026-09-19T18:10:00+09:00", "checkin": ["sample:s6:in:0", "sample:s6:in:1", "sample:s6:in:2", "sample:s6:in:3"], "checkout": ["sample:s6:out:0", "sample:s6:out:1", "sample:s6:out:2", "sample:s6:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "sets/s1": {"name": "첫 캠핑 1박 세트", "cat": "camp", "art": "tent", "warm": false, "dist": 800, "price": 30000, "ownerLabel": "남오름", "ownerId": null, "coaching": true, "items": [{"n": "4인용 돔 텐트", "c": "상태 좋음"}, {"n": "헥사 타프", "c": "상태 좋음"}, {"n": "캠핑 의자 2개", "c": "사용감 조금"}, {"n": "LED 랜턴", "c": "상태 좋음"}], "slots": ["텐트", "타프", "의자", "랜턴"], "desc": "처음 캠핑에 필요한 기본 장비를 한 번에 묶었어요. 텐트 치는 법이 걱정되면 코칭을 추가하세요.", "place": "충북대 중문 앞", "blocked": ["2026-11-29"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s2": {"name": "감성 캠핑 세트", "cat": "camp", "art": "tent", "warm": true, "dist": 1200, "price": 38000, "ownerLabel": "정하늘", "ownerId": null, "coaching": true, "items": [{"n": "면 소재 벨 텐트", "c": "상태 좋음"}, {"n": "우드 롤테이블", "c": "상태 좋음"}, {"n": "릴렉스 체어 2개", "c": "상태 좋음"}, {"n": "갈런드 조명", "c": "새것에 가까움"}], "slots": ["텐트", "테이블", "의자", "조명"], "desc": "사진이 예쁘게 나오는 면 텐트 구성이에요. 설치가 조금 까다로워 코칭을 권해요.", "place": "사창사거리 버스정류장 앞", "blocked": ["2026-12-05"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s3": {"name": "입문 랜턴 세트", "cat": "light", "art": "lantern", "warm": true, "dist": 400, "price": 9000, "ownerLabel": "최민재", "ownerId": null, "coaching": false, "items": [{"n": "LED 랜턴 2개", "c": "상태 좋음"}, {"n": "가스 랜턴", "c": "유리 미세 스크래치"}, {"n": "랜턴 걸이 폴", "c": "상태 좋음"}, {"n": "예비 건전지", "c": "포함"}], "slots": ["LED 랜턴", "가스 랜턴", "걸이 폴", "구성품"], "desc": "이미 텐트가 있다면 조명만 빌려 보세요. 가장 가까운 세트예요.", "place": "사창동 행정복지센터 앞", "blocked": [], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s4": {"name": "솔로 백패킹 세트", "cat": "camp", "art": "pack", "warm": false, "dist": 1600, "price": 25000, "ownerLabel": "윤서진", "ownerId": null, "coaching": true, "items": [{"n": "1인용 경량 텐트", "c": "상태 좋음"}, {"n": "자충 매트", "c": "사용감 조금"}, {"n": "3계절 침낭", "c": "세탁 완료"}, {"n": "경량 의자", "c": "상태 좋음"}], "slots": ["텐트", "매트", "침낭", "의자"], "desc": "혼자 떠나는 첫 백패킹용이에요. 전체 무게 7kg 안팎.", "place": "사창동 어린이공원 입구", "blocked": ["2026-11-28", "2026-11-29"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s5": {"name": "화로·바비큐 세트", "cat": "fire", "art": "fire", "warm": true, "dist": 1900, "price": 15000, "ownerLabel": "한도윤", "ownerId": null, "coaching": false, "items": [{"n": "접이식 화로대", "c": "그을음 있음"}, {"n": "바비큐 그릴망", "c": "세척 완료"}, {"n": "집게·토치", "c": "상태 좋음"}, {"n": "내열 장갑", "c": "상태 좋음"}], "slots": ["화로대", "그릴망", "집게·토치", "장갑"], "desc": "캠핑장 화로 사용 규칙을 꼭 확인해 주세요.", "place": "사창동 공영주차장 앞", "blocked": [], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s6": {"name": "가족 캠핑 세트", "cat": "camp", "art": "tent", "warm": false, "dist": 2000, "price": 45000, "ownerLabel": "남오름", "ownerId": null, "coaching": true, "items": [{"n": "6인용 터널 텐트", "c": "상태 좋음"}, {"n": "대형 타프", "c": "상태 좋음"}, {"n": "캠핑 테이블", "c": "상태 좋음"}, {"n": "캠핑 의자 4개", "c": "사용감 조금"}], "slots": ["텐트", "타프", "테이블", "의자"], "desc": "아이와 함께하는 가족 캠핑용 넉넉한 구성이에요.", "place": "충북대 중문 앞", "blocked": ["2026-12-12"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}};
+const SEED = {"bookings/sample-1": {"setId": "s1", "renterId": null, "renterLabel": "이*진", "start": "2026-09-05", "nights": 1, "coaching": true, "total": 40000, "status": "returned", "sample": true, "createdAt": "2026-09-05T09:00:00+09:00", "checkinAt": "2026-09-05T18:10:00+09:00", "checkoutAt": "2026-09-05T18:10:00+09:00", "checkin": ["sample:s1:in:0", "sample:s1:in:1", "sample:s1:in:2", "sample:s1:in:3"], "checkout": ["sample:s1:out:0", "sample:s1:out:1", "sample:s1:out:2", "sample:s1:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "bookings/sample-2": {"setId": "s1", "renterId": null, "renterLabel": "박*우", "start": "2026-09-19", "nights": 2, "coaching": false, "total": 60000, "status": "returned", "sample": true, "createdAt": "2026-09-19T09:00:00+09:00", "checkinAt": "2026-09-19T18:10:00+09:00", "checkoutAt": "2026-09-19T18:10:00+09:00", "checkin": ["sample:s1:in:0", "sample:s1:in:1", "sample:s1:in:2", "sample:s1:in:3"], "checkout": ["sample:s1:out:0", "sample:s1:out:1", "sample:s1:out:2", "sample:s1:out:3"], "note": "의자 팔걸이 사용감, 인수 사진과 동일"}, "bookings/sample-3": {"setId": "s1", "renterId": null, "renterLabel": "최*린", "start": "2026-10-03", "nights": 1, "coaching": true, "total": 40000, "status": "returned", "sample": true, "createdAt": "2026-10-03T09:00:00+09:00", "checkinAt": "2026-10-03T18:10:00+09:00", "checkoutAt": "2026-10-03T18:10:00+09:00", "checkin": ["sample:s1:in:0", "sample:s1:in:1", "sample:s1:in:2", "sample:s1:in:3"], "checkout": ["sample:s1:out:0", "sample:s1:out:1", "sample:s1:out:2", "sample:s1:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "bookings/sample-4": {"setId": "s2", "renterId": null, "renterLabel": "오*아", "start": "2026-09-12", "nights": 1, "coaching": true, "total": 48000, "status": "returned", "sample": true, "createdAt": "2026-09-12T09:00:00+09:00", "checkinAt": "2026-09-12T18:10:00+09:00", "checkoutAt": "2026-09-12T18:10:00+09:00", "checkin": ["sample:s2:in:0", "sample:s2:in:1", "sample:s2:in:2", "sample:s2:in:3"], "checkout": ["sample:s2:out:0", "sample:s2:out:1", "sample:s2:out:2", "sample:s2:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "bookings/sample-5": {"setId": "s2", "renterId": null, "renterLabel": "서*민", "start": "2026-10-03", "nights": 2, "coaching": true, "total": 86000, "status": "returned", "sample": true, "createdAt": "2026-10-03T09:00:00+09:00", "checkinAt": "2026-10-03T18:10:00+09:00", "checkoutAt": "2026-10-03T18:10:00+09:00", "checkin": ["sample:s2:in:0", "sample:s2:in:1", "sample:s2:in:2", "sample:s2:in:3"], "checkout": ["sample:s2:out:0", "sample:s2:out:1", "sample:s2:out:2", "sample:s2:out:3"], "note": "텐트 결로 건조 후 반납"}, "bookings/sample-6": {"setId": "s3", "renterId": null, "renterLabel": "강*수", "start": "2026-09-12", "nights": 1, "coaching": false, "total": 9000, "status": "returned", "sample": true, "createdAt": "2026-09-12T09:00:00+09:00", "checkinAt": "2026-09-12T18:10:00+09:00", "checkoutAt": "2026-09-12T18:10:00+09:00", "checkin": ["sample:s3:in:0", "sample:s3:in:1", "sample:s3:in:2", "sample:s3:in:3"], "checkout": ["sample:s3:out:0", "sample:s3:out:1", "sample:s3:out:2", "sample:s3:out:3"], "note": "가스 랜턴 유리 스크래치 기존 기록과 동일"}, "bookings/sample-7": {"setId": "s4", "renterId": null, "renterLabel": "문*호", "start": "2026-09-26", "nights": 1, "coaching": true, "total": 35000, "status": "returned", "sample": true, "createdAt": "2026-09-26T09:00:00+09:00", "checkinAt": "2026-09-26T18:10:00+09:00", "checkoutAt": "2026-09-26T18:10:00+09:00", "checkin": ["sample:s4:in:0", "sample:s4:in:1", "sample:s4:in:2", "sample:s4:in:3"], "checkout": ["sample:s4:out:0", "sample:s4:out:1", "sample:s4:out:2", "sample:s4:out:3"], "note": "침낭 세탁 후 반납"}, "bookings/sample-8": {"setId": "s6", "renterId": null, "renterLabel": "배*연", "start": "2026-09-19", "nights": 2, "coaching": false, "total": 90000, "status": "returned", "sample": true, "createdAt": "2026-09-19T09:00:00+09:00", "checkinAt": "2026-09-19T18:10:00+09:00", "checkoutAt": "2026-09-19T18:10:00+09:00", "checkin": ["sample:s6:in:0", "sample:s6:in:1", "sample:s6:in:2", "sample:s6:in:3"], "checkout": ["sample:s6:out:0", "sample:s6:out:1", "sample:s6:out:2", "sample:s6:out:3"], "note": "반납 확인 완료 · 이상 없음"}, "sets/s1": {"name": "첫 캠핑 1박 세트", "cat": "camp", "art": "tent", "warm": false, "dist": 800, "price": 30000, "ownerLabel": "이준호", "ownerId": null, "coaching": true, "items": [{"n": "4인용 돔 텐트", "c": "상태 좋음"}, {"n": "헥사 타프", "c": "상태 좋음"}, {"n": "캠핑 의자 2개", "c": "사용감 조금"}, {"n": "LED 랜턴", "c": "상태 좋음"}], "slots": ["텐트", "타프", "의자", "랜턴"], "desc": "처음 캠핑에 필요한 기본 장비를 한 번에 묶었어요. 텐트 치는 법이 걱정되면 코칭을 추가하세요.", "place": "충북대 중문 앞", "blocked": ["2026-11-29"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s2": {"name": "감성 캠핑 세트", "cat": "camp", "art": "tent", "warm": true, "dist": 1200, "price": 38000, "ownerLabel": "정하늘", "ownerId": null, "coaching": true, "items": [{"n": "면 소재 벨 텐트", "c": "상태 좋음"}, {"n": "우드 롤테이블", "c": "상태 좋음"}, {"n": "릴렉스 체어 2개", "c": "상태 좋음"}, {"n": "갈런드 조명", "c": "새것에 가까움"}], "slots": ["텐트", "테이블", "의자", "조명"], "desc": "사진이 예쁘게 나오는 면 텐트 구성이에요. 설치가 조금 까다로워 코칭을 권해요.", "place": "사창사거리 버스정류장 앞", "blocked": ["2026-12-05"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s3": {"name": "입문 랜턴 세트", "cat": "light", "art": "lantern", "warm": true, "dist": 400, "price": 9000, "ownerLabel": "최민재", "ownerId": null, "coaching": false, "items": [{"n": "LED 랜턴 2개", "c": "상태 좋음"}, {"n": "가스 랜턴", "c": "유리 미세 스크래치"}, {"n": "랜턴 걸이 폴", "c": "상태 좋음"}, {"n": "예비 건전지", "c": "포함"}], "slots": ["LED 랜턴", "가스 랜턴", "걸이 폴", "구성품"], "desc": "이미 텐트가 있다면 조명만 빌려 보세요. 가장 가까운 세트예요.", "place": "사창동 행정복지센터 앞", "blocked": [], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s4": {"name": "솔로 백패킹 세트", "cat": "camp", "art": "pack", "warm": false, "dist": 1600, "price": 25000, "ownerLabel": "윤서진", "ownerId": null, "coaching": true, "items": [{"n": "1인용 경량 텐트", "c": "상태 좋음"}, {"n": "자충 매트", "c": "사용감 조금"}, {"n": "3계절 침낭", "c": "세탁 완료"}, {"n": "경량 의자", "c": "상태 좋음"}], "slots": ["텐트", "매트", "침낭", "의자"], "desc": "혼자 떠나는 첫 백패킹용이에요. 전체 무게 7kg 안팎.", "place": "사창동 어린이공원 입구", "blocked": ["2026-11-28", "2026-11-29"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s5": {"name": "화로·바비큐 세트", "cat": "fire", "art": "fire", "warm": true, "dist": 1900, "price": 15000, "ownerLabel": "한도윤", "ownerId": null, "coaching": false, "items": [{"n": "접이식 화로대", "c": "그을음 있음"}, {"n": "바비큐 그릴망", "c": "세척 완료"}, {"n": "집게·토치", "c": "상태 좋음"}, {"n": "내열 장갑", "c": "상태 좋음"}], "slots": ["화로대", "그릴망", "집게·토치", "장갑"], "desc": "캠핑장 화로 사용 규칙을 꼭 확인해 주세요.", "place": "사창동 공영주차장 앞", "blocked": [], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}, "sets/s6": {"name": "가족 캠핑 세트", "cat": "camp", "art": "tent", "warm": false, "dist": 2000, "price": 45000, "ownerLabel": "이준호", "ownerId": null, "coaching": true, "items": [{"n": "6인용 터널 텐트", "c": "상태 좋음"}, {"n": "대형 타프", "c": "상태 좋음"}, {"n": "캠핑 테이블", "c": "상태 좋음"}, {"n": "캠핑 의자 4개", "c": "사용감 조금"}], "slots": ["텐트", "타프", "테이블", "의자"], "desc": "아이와 함께하는 가족 캠핑용 넉넉한 구성이에요.", "place": "충북대 중문 앞", "blocked": ["2026-12-12"], "sample": true, "createdAt": "2026-11-23T15:00:00+09:00"}};
 const LS_KEY = "jumal-sachang-v1", NAME_KEY = "jumal-sachang-name";
 function seedDocs(){ return JSON.parse(JSON.stringify(SEED)); }
 function makeLocalDb(){
